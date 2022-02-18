@@ -38,21 +38,7 @@ class ContenedorProducts {
       throw new Error("Error al guardar");
     }
   }
-  //para el PUT
-  /*   actualizar(elem, id) {
-    const objs = this.listarAll();
-    const index = objs.findIndex((o) => o.id == id);
-    if (index == -1) {
-      throw new Error(`Error al actualizar: no se encontró el id ${id}`);
-    } else {
-      objs[index] = elem;
-      try {
-        fs.writeFileSync("productos.txt", JSON.stringify(objs, null, 2));
-      } catch (error) {
-        throw new Error("Error detectado!");
-      }
-    }
-  } */
+
   //para el DELETE
   borrar(id) {
     const objs = this.listarAll();

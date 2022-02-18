@@ -113,7 +113,10 @@ cart.post("/", (req, res) => {
 cart.delete("/:id", (req, res) => {
   const cart = apiCart.listarAll();
   let prodID = req.params.id;
-  cart[prodID - 1] = null;
+  cart.splice(prodID - 1, 1);
+  for (let i = parseInt(prodID - 1); i < cart.length; i++) {
+    cart[i][0].id = i + 1;
+  }
   fs.writeFileSync("./cart.txt", JSON.stringify(cart));
 
   res.send(cart);
@@ -142,10 +145,10 @@ cart.get("/:id/productos", (req, res) => {
 
 cart.post("/:id/productos", (req, res) => {
   const cart = apiCart.listarAll();
-  let prodID = req.params.id - 1;
+  let prodID = req.params.id;
   const newProd = req.body;
-  const id = cart[prodID];
-  newProd.id = id.length;
+  const id = cart[prodID - 1];
+  newProd.id = id.length + 1;
   cart[prodID - 1].push(newProd);
   fs.writeFileSync("./cart.txt", JSON.stringify(cart));
   const prodEnId = cart[prodID - 1];
@@ -160,9 +163,10 @@ cart.delete("/:id/productos/:id_prod", (req, res) => {
   let itemToDelete = cart[cartID - 1];
   let prodID = req.params.id_prod;
   itemToDelete.splice(prodID - 1, 1);
+  for (let i = parseInt(prodID) - 1; i < itemToDelete.length; i++) {
+    itemToDelete[i].id = i + 1;
+  }
   cart[cartID - 1] = itemToDelete;
-  /* cart[cartID - 1][prodID - 1] = null; */
-
   fs.writeFileSync("./cart.txt", JSON.stringify(cart));
   res.send(cart[cartID - 1]);
 });
