@@ -1,0 +1,47 @@
+h1 {
+  font-size: 28px;
+  text-align: center;
+  font-weight: 700;
+  border-bottom: 1px solid black;
+  width: 40%;
+  margin: auto;
+  padding-bottom: 1%;
+  margin-top: 2%;
+}
+.formTotal {
+  width: 70%;
+  margin: auto;
+}
+.labels {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: black !important;
+}
+.btngeneral {
+  background-color: grey;
+  border-radius: 5%;
+  margin: auto;
+  text-decoration: none;
+  color: black;
+}
+.btngeneral:hover {
+  color: black;
+}
+
+.contenedorBtnProd {
+  padding-top: 5%;
+  width: 40%;
+  margin: auto;
+  text-align: center;
+}
+
+.chatGeneral {
+  width: 80%;
+  margin-top: 4%;
+  margin: auto;
+  min-height: 200px;
+}
