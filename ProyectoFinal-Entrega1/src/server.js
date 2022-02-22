@@ -35,15 +35,9 @@ prod.get("/:id?", (req, res) => {
   const prods = apiProds.listarAll();
   const prodBuscado = prods[req.params.id - 1];
   if (req.params && req.params.id <= prods.length) {
-    res.render("vista", {
-      productos: prodBuscado,
-      hayProductos: prods.length,
-    });
+    res.send(prodBuscado);
   } else {
-    res.render("vistaProdVarios", {
-      productos: prods,
-      hayProductos: prods.length,
-    });
+    res.send("No esta ese ID");
   }
 });
 
@@ -56,7 +50,7 @@ prod.post("/", (req, res) => {
     newProd.timeStamp = Date.now();
     prods.push(newProd);
     fs.writeFileSync("./productos.txt", JSON.stringify(prods));
-    res.redirect("/api/productos");
+    res.send(newProd);
   } else {
     ("No tiene derechos de administrador");
   }
@@ -105,7 +99,8 @@ cart.post("/", (req, res) => {
   cart.push(newCart);
   fs.writeFileSync("./cart.txt", JSON.stringify(cart));
 
-  res.send(cart);
+  //NO ME FUNCIONA
+  res.send(totalCart.id);
 });
 
 //METODO DELETE
@@ -130,15 +125,9 @@ cart.get("/:id/productos", (req, res) => {
   const prodEnId = cart[prodID - 1];
 
   if (req.params && req.params.id <= cart.length) {
-    res.render("vistaCartVariosProd", {
-      productos: prodEnId,
-      hayProductos: cart.length,
-    });
+    res.send(prodEnId);
   } else {
-    res.render("vista", {
-      productos: prodEnId,
-      hayProductos: cart.length,
-    });
+    res.send("No se encuentra ese ID");
   }
 });
 //METODO POST CON PROD
