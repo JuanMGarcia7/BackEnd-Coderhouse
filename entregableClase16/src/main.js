@@ -7,13 +7,15 @@ const ContenedorMemoria = require("../contenedores/ContenedorMemoria.js");
 const ContenedorArchivo = require("../contenedores/ContenedorArchivo.js");
 const ContenedorMDB = require("../contenedores/ContenedorMDB.js");
 const ContenedorSQLITE = require("../contenedores/ContenedorSQLITE.js");
+const { mdb } = require("../options/mariaDB.js");
+const { sql3 } = require("../options/sqlite3.js");
 
 const app = express();
 const httpServer = new HttpServer(app);
 const io = new Socket(httpServer);
 
-const productosApi = new ContenedorMDB();
-const mensajesApi = new ContenedorSQLITE();
+const productosApi = new ContenedorMDB(mdb);
+const mensajesApi = new ContenedorSQLITE(sql3);
 
 io.on("connection", async (socket) => {
   console.log("Nuevo cliente conectado!");

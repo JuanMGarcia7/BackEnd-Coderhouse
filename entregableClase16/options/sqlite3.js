@@ -1,4 +1,4 @@
-const options = {
+const sql3 = {
   client: "sqlite3",
   connection: {
     filename: `${__dirname}/DB/mydb.sqlite`,
@@ -7,5 +7,5 @@ const options = {
 };
 
 module.exports = {
-  options,
+  sql3,
 };
