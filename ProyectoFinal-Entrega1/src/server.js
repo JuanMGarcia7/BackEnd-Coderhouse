@@ -59,16 +59,35 @@ prod.post("/", (req, res) => {
 //METODO PUT
 prod.put("/:id", (req, res) => {
   if (admin) {
-    const prods = apiProds.listarAll();
+    let prods = apiProds.listarAll();
     let prodID = req.params.id;
-    prods[prodID - 1] = req.body;
-    prods[prodID - 1].id = req.params.id;
-    prods[prodID - 1].timestamp = Date.now();
-
+    let newProduct = req.body;
+    /*   prods[prodID - 1] = req.body; */
+    newProduct.id = req.params.id;
+    newProduct.timeStamp = Date.now();
+    if (newProduct.nombre != null) {
+      prods[prodID - 1].nombre = newProduct.nombre;
+    }
+    if (newProduct.precio != null) {
+      prods[prodID - 1].precio = newProduct.precio;
+    }
+    if (newProduct.stock != null) {
+      prods[prodID - 1].stock = newProduct.stock;
+    }
+    if (newProduct.foto != null) {
+      prods[prodID - 1].foto = newProduct.foto;
+    }
+    if (newProduct.codigo != null) {
+      prods[prodID - 1].codigo = newProduct.codigo;
+    }
+    if (newProduct.descripcion != null) {
+      prods[prodID - 1].descripcion = newProduct.descripcion;
+    }
+    prods[prodID - 1].timeStamp = newProduct.timeStamp;
     fs.writeFileSync("./productos.txt", JSON.stringify(prods), (err) => {
       if (err) console.log(err);
     });
-    res.send(prods);
+    res.send(prods[prodID - 1]);
   } else {
     ("No tiene los derechos de admin");
   }
@@ -98,9 +117,9 @@ cart.post("/", (req, res) => {
   newCart.push(totalCart);
   cart.push(newCart);
   fs.writeFileSync("./cart.txt", JSON.stringify(cart));
+  let id = cart[cart.length - 1][0].id;
 
-  //NO ME FUNCIONA
-  res.send(totalCart.id);
+  res.send({ id });
 });
 
 //METODO DELETE
