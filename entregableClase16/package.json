@@ -4,23 +4,33 @@
   "main": "index.js",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "express-handlebars": "^6.0.2",
     "handlebars": "^4.7.7",
+    "install": "^0.13.0",
     "knex": "^0.95.15",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
-    "pug": "^3.0.2",
+    "npm": "^8.5.2",
     "socket.io": "^4.4.1",
     "sqlite3": "^5.0.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/main.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "keywords": [],
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanMGarcia7/BackEnd-Coderhouse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JuanMGarcia7/BackEnd-Coderhouse/issues"
+  },
+  "homepage": "https://github.com/JuanMGarcia7/BackEnd-Coderhouse#readme",
   "description": ""
 }

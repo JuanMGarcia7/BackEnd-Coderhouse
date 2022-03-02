@@ -1,94 +1,44 @@
 const { sql3 } = require("../options/sqlite3.js");
 const knex = require("knex")(sql3);
 
+const { promises: fs } = require("fs");
+
 class ContenedorSQLITE {
-  constructor(sql3) {
-    this.knex = knexFunc(sql3);
-    this.mensajes = [];
-    this.nextMsj = 0;
-    this.timeStamp = moment().format("DD/MM/YYYY h:mm:ss a");
-    this.codeProd = Math.round(Math.random() * 10000);
+  async crearTableMsg() {
+    knex.schema
+      .createTableIfNotExists("messages", (table) => {
+        table.increments("id");
+        table.string("autor");
+        table.string("fyh");
+        table.string("texto");
+      })
+      .then(() => {
+        console.log("tabla mensajes creada");
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
   }
 
   async listarAll() {
-    await knex
-      .from("mensajes")
-      .select("*")
-      .then((rows) => {
-        for (row of rows) {
-          console.log(`${row["id"]} ${row["name"]} ${row["mensaje"]} `);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        knex.destroy();
-      });
+    return await knex.from("messages").select("*");
   }
 
-  async listar(id) {
-    await knex
-      .from("mensajes")
-      .where("id" == id)
-      .then((rows) => {
-        for (row of rows) {
-          console.log(`${row["id"]} ${row["name"]} ${row["mensaje"]} `);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        knex.destroy();
-      });
-  }
   async guardar(obj) {
-    await knex
-      .from("mensajes")
+    knex("messages")
       .insert(obj)
-      .then(() => console.log("data insertada"))
+      .then(() => console.log("datos insertados"))
       .catch((err) => {
         console.log(err);
         throw err;
-      })
-      .finally(() => {
-        knex.destroy();
       });
-  }
-  async borrar(id) {
-    await knex
-      .from("mensajes")
-      .where("id" == id)
-      .del()
-      .then(() =>
-        console.log(
-          `los mensajes enviados desde el ID ${id}, fueron eliminados`
-        )
-      )
-      .catch((err) => {
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        knex.destroy();
-      });
+
+    return "ok";
   }
 
-  async borrarAll() {
-    await knex
-      .from("mensajes")
-      .del()
-      .then(() => console.log(`Todos los mensajes fueron eliminados`))
-      .catch((err) => {
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        knex.destroy();
-      });
+  close() {
+    return this.knex.destroy();
   }
 }
 

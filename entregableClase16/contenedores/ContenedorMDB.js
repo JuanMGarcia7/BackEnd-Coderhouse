@@ -1,14 +1,28 @@
 const { mdb } = require("../options/mariaDB.js");
 const knex = require("knex")(mdb);
+const moment = require("moment");
 
 //PROBANDO CON LO NUEVO
 class ContenedorMDB {
-  constructor(mdb) {
-    this.knex = knexFunc(mdb);
-    this.PRODUCTS_DB = [];
-    this.nextProdDb = 0;
-    this.timeStamp = moment().format("DD/MM/YYYY h:mm:ss a");
-    this.codeProd = Math.round(Math.random() * 10000);
+  constructor(title, price, thumb) {
+    this.id = 0;
+    this.title = title;
+    this.price = price;
+    this.thumb = thumb;
+  }
+  async createTable() {
+    await knex.schema
+      .createTableIfNotExists("productos", (table) => {
+        table.increments("id");
+        table.string("title");
+        table.integer("price");
+        table.string("thumbnail");
+      })
+      .then(() => console.log("Tabla creada"))
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
   }
 
   async listarAll() {
@@ -23,23 +37,20 @@ class ContenedorMDB {
       .catch((err) => {
         console.log(err);
         throw err;
-      })
-      .finally(() => {
-        knex.destroy();
       });
   }
-  async guardar(obj) {
-    await knex
+  async guardar(title, price, thumb) {
+    let producto = new producto(title, price, thumb);
+    knex
       .from("productos")
-      .insert(obj)
+      .insert(producto)
       .then(() => console.log("data insertada"))
       .catch((err) => {
         console.log(err);
         throw err;
-      })
-      .finally(() => {
-        knex.destroy();
       });
+
+    return "ok";
   }
 
   async listar(id) {
@@ -54,9 +65,6 @@ class ContenedorMDB {
       .catch((err) => {
         console.log(err);
         throw err;
-      })
-      .finally(() => {
-        knex.destroy();
       });
   }
 
@@ -69,9 +77,6 @@ class ContenedorMDB {
       .catch((err) => {
         console.log(err);
         throw err;
-      })
-      .finally(() => {
-        knex.destroy();
       });
   }
 
@@ -83,9 +88,6 @@ class ContenedorMDB {
       .catch((err) => {
         console.log(err);
         throw err;
-      })
-      .finally(() => {
-        knex.destroy();
       });
   }
 }
