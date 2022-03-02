@@ -1,4 +1,6 @@
-const express = require("express");
+//SACAR? COMPRAR CON INDEX.JS
+
+/* const express = require("express");
 
 const { Server: HttpServer } = require("http");
 const { Server: Socket } = require("socket.io");
@@ -16,6 +18,9 @@ const io = new Socket(httpServer);
 
 const productosApi = new ContenedorMDB(mdb);
 const mensajesApi = new ContenedorSQLITE(sql3);
+mensajesApi.createTable();
+
+ mensajesApi.createTable(); 
 
 io.on("connection", async (socket) => {
   console.log("Nuevo cliente conectado!");
@@ -49,3 +54,4 @@ const connectedServer = httpServer.listen(PORT, () => {
 connectedServer.on("error", (error) =>
   console.log(`Error en servidor ${error}`)
 );
+ */

@@ -37,6 +37,7 @@ const inputMensaje = document.getElementById("inputMensaje");
 const btnEnviar = document.getElementById("btnEnviar");
 
 const formPublicarMensaje = document.getElementById("formPublicarMensaje");
+
 formPublicarMensaje.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -45,26 +46,69 @@ formPublicarMensaje.addEventListener("submit", (e) => {
   formPublicarMensaje.reset();
   inputMensaje.focus();
 });
+socket.on("users", (usuarios) => {
+  usuarios = [...new Set(usuarios.map((item) => item.autor))]; // [ 'A', 'B']
 
-socket.on("mensajes", (mensajes) => {
+  const html = usersShow(usuarios);
+  document.getElementById("usuarios").innerHTML = html;
+});
+
+function usersShow(usuarios) {
+  console.log(usuarios);
+  return usuarios
+    .map((usuario) => {
+      let color = "black";
+
+      let contentText = "flex-start";
+      let backColor = "gainsboro";
+
+      return `
+          <div  style="display: flex; justify-content: ${contentText}">
+              <b style="color:${color};">${usuario}</b> 
+          </div>
+      `;
+    })
+    .join("<br/>");
+}
+function makeHtmlList(mensajes) {
+  /* return fetch("./index.hbs")
+    .then((respuesta) => respuesta.text())
+    .then((lista) => {
+      const template = Handlebars.compile(lista);
+      const html = template({ mensajes });
+      return html;
+    }); */
   console.log(mensajes);
+  return mensajes
+    .map((mensaje) => {
+      let color = "black";
+
+      let contentText = "flex-start";
+      let backColor = "#ffffff";
+      if (mensaje.socketId == socket.id) {
+        contentText = "flex-end";
+        backColor = "#dafdd3";
+      }
+
+      return `
+          <div  style="background-color: ${backColor}; display: flex; justify-content: ${contentText}">
+              <b style="color:${color};">${mensaje.autor}</b>
+              [<span style="color:black;">${mensaje.fyh}</span>] :
+              <i style="color:black;">${mensaje.texto}</i>
+          </div>
+      `;
+    })
+
+    .join("<br/>");
+}
+socket.on("mensajes", (mensajes) => {
+  /* makeHtmlList(mensajes).then((html) => {
+    document.getElementById("mensajes").innerHTML = html;
+  }); */
   const html = makeHtmlList(mensajes);
   document.getElementById("mensajes").innerHTML = html;
 });
-
-function makeHtmlList(mensajes) {
-  return mensajes
-    .map((mensaje) => {
-      return `
-            <div>
-                <b style="color:blue;">${mensaje.autor}</b>
-                [<span style="color:brown;">${mensaje.fyh}</span>] :
-                <i style="color:green;">${mensaje.texto}</i>
-            </div>
-        `;
-    })
-    .join(" ");
-}
+//
 
 inputUsername.addEventListener("input", () => {
   const hayEmail = inputUsername.value.length;
