@@ -1,0 +1,53 @@
+>En consola, ponemos " mongod --dbpath <insertar ruta>"- lo dejamos funcionando, y abrimos una consola nueva.
+>En la nueva consola, utilizamos el comando "mongo"
+
+>Luego, "use ecommerce"
+
+
+>Para crear una coleccion, e ingresar los prodcutos usamos el siguiente (en mi caso ya pongo los productos que ingrese)
+----->db.productos.insertMany([{"nombre" : "mate", "codigo" : "123", "precio" : 640}, {"nombre" : "termo", "codigo" : "156", "precio" : 1500},{ "nombre" : "lentes", "codigo" : "865", "precio" : 2100},{ "nombre" : "cable auxiliar", "codigo" : "532", "precio" : 240},{"nombre"
+: "mochila", "codigo" : "163", "precio" : 2400},{ "nombre" : "teclado", "codigo" : "1532", "precio" : 2800},{"nombre" : "yerba", "codigo" : "125", "precio" : 300},{ "nombre" : "mouse", "codigo" : "155", "precio" : 3200},{"nombre" : "monitor", "codigo" : "1644", "precio"
+: 4600},{"nombre" : "auriculares", "codigo" : "12555", "precio" : 4900}])
+
+
+>Aqui ya hemos creado una coleccion llamada productos, y le insertamos 10 productos.
+
+>Para crear otra coleccion, pero de mensajes, utilizamos
+----->db.mensajes.insertMany(), e ingresamos dentro de los parantesis los 10 elemntos
+
+>Para listar los productos de cada coleccion haremos:
+----->db.prodcutos.find()
+----->db.mensajes.find()
+>Para que se visualicen mas bello, podemos usar .pretty() al final del comando anterior
+
+>Para mostrar la cantidad de documentos almacenados en cada una de las colecciones, utilizamos:
+----->db.productos.estimatedDocumentCount()
+----->db.mensajes.estimatedDocumentCount()
+
+>Para insertar un producto mas a la coleccion de productos, haremos el comando:
+----->db.productos.insertOne({"nombre" : "Gafas con perlante", "codigo" : "1795", "precio" : 4950})
+
+
+>Para listar los productos con precio menor a 1000, hacemos:
+-----> db.productos.find({"precio": { $lt : 1000}})
+
+>Para listar los productos con precio entre 1000 y 3000, hacemos:
+----->db.productos.find({"precio": { $gte : 1000, $lte : 3000}})
+
+>Para listar los productos con precio mayor a 3000, hacemos:
+-----> db.productos.find({"precio": { $gt : 3000}})
+
+>Para listar sólo el nombre del tercer producto más barato, utilizamos:
+----->db.productos.find({},{"nombre":1, "_id":0}).sort({"precio": 1}).skip(2).limit(1)
+
+>Para agregarle un stock de 100 a todos los productos:
+----->db.productos.update({},{$set: {"stock": 100}}, {"multi": true})
+
+>Para cambiar el stock a cero de los productos con precios mayores a 4000 pesos:
+----->db.productos.update({"precio" : {$gt : 4000}}, {$set : {"stock" : 0}}, {"multi": true})
+
+>Para borrar los productos con precio menor a 1000 pesos :
+-----> db.productos.deleteMany({"precio": { $lt : 1000}})
+
+>Para crear un usuario de solo lectura:
+----->db.createUser({user: "pepe", pwd: "asd456",roles: [{ role: "read", db: "ecommerce" }]})
