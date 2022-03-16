@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { productsDao } from "../daos/index.js";
+import { productsDao } from "../../daos/index.js";
 const productos = new Router();
 
 export default (app) => {
@@ -14,7 +14,7 @@ export default (app) => {
   });
 
   productos.post("/", async (req, res) => {
-    res.send(await productsDao.guardar(req.body));
+    res.json(await productsDao.save(req.body));
   });
 
   productos.put("/:id", async (req, res) => {

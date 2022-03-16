@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { cartsDao, productsDao } from "../daos/index.js";
+import { cartsDao, productsDao } from "../../daos/index.js";
 
 const cart = new Router();
-
 export default (app) => {
   app.use("/api/carrito", cart);
 
@@ -15,7 +14,7 @@ export default (app) => {
   });
 
   cart.post("/", async (req, res) => {
-    res.json(await cartsDao.guardar(req.body));
+    res.json(await cartsDao.save(req.body));
   });
 
   cart.delete("/", async (req, res) => {

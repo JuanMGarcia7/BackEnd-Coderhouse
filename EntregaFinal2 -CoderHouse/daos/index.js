@@ -3,10 +3,10 @@ let cartsDao;
 
 if (`${process.env.DB}` === "mongodb") {
   const { default: ProdDaoMongo } = await import(
-    "../componentes/productos/daoMongo.js"
+    "../componentes/productos/ProdDaoMongo"
   );
   const { default: CarritoDaoMongo } = await import(
-    "../componentes/carts/daoMongo.js"
+    "../componentes/carts/CarritoDaoMongo.js"
   );
   productsDao = new ProdDaoMongo();
   cartsDao = new CarritoDaoMongo();
@@ -14,10 +14,10 @@ if (`${process.env.DB}` === "mongodb") {
 
 if (`${process.env.DB}` === "firebase") {
   const { default: ProdDaoFB } = await import(
-    "../componentes/productos/daoFirebase.js"
+    "../componentes/productos/ProdDaoFB.js"
   );
   const { default: CarritoDaoFB } = await import(
-    "../componentes/carts/daoFirebase.js"
+    "../componentes/carts/CarritoDaoFB.js"
   );
   productsDao = new ProdDaoFB();
   cartsDao = new CarritoDaoFB();

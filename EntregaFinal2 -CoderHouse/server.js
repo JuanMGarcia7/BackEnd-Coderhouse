@@ -1,15 +1,18 @@
-import carrito from "./routers/carrito.js";
-import productos from "./routers/productos.js";
+import routers from "./routers/index.js";
 import express from "express";
-
-/* const express = require("express"); */
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
-carrito(app);
-productos(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-const PORT = 8080 || process.env.PORT;
+app.use(cors(`${process.env.PORT}`));
+
+routers(app);
+
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Servido escuchando en el puerto ${PORT}`));

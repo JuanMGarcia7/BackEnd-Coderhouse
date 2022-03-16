@@ -1,18 +1,21 @@
 import admin from "firebase-admin";
-import inicializacion from "../configs/ConfigFirebase.js";
 import moment from "moment";
 
-inicializacion;
+admin.initializeApp({
+  credential: admin.credential.cert(config.firebase),
+});
+
 const db = admin.firestore();
-const query = db.collection("usuarios");
 
 export default class contenedorFirebase {
-  constructor() {}
+  constructor(coleccion) {
+    this.coleccion = db.collection(coleccion);
+  }
 
   async listarAll() {
     try {
       const resultado = [];
-      const querySnapshot = await query.get();
+      const querySnapshot = await this.coleccion.get();
       querySnapshot.forEach((doc) => {
         resultado.push({ id: doc.id, ...doc.data });
       });
@@ -26,7 +29,7 @@ export default class contenedorFirebase {
   async listarID(id) {
     try {
       let idBuscado = id;
-      const buscado = await query.doc(`${idBuscado}`).get();
+      const buscado = await this.coleccion.doc(`${idBuscado}`).get();
       if (!buscado.exists) {
         console.log("Error al buscar.");
       } else {
@@ -40,7 +43,7 @@ export default class contenedorFirebase {
   async guardar(newElement) {
     newElement.timestamp = moment(new Date()).format("DD/MM/YY HH:mm");
     try {
-      const doc = await query.add(newElement);
+      const doc = await this.coleccion.add(newElement);
       return { ...newElement, id: doc.id };
 
       //  O ESTO
@@ -54,7 +57,7 @@ export default class contenedorFirebase {
   async update(id, newData) {
     newData.timestamp = moment(new Date()).format("DD/MM/YY HH:mm");
     try {
-      const buscado = await query.doc(id).set(newData);
+      const buscado = await this.coleccion.doc(id).set(newData);
       console.log(buscado);
     } catch (error) {
       throw new Error(`Error al actualizar: ${error}`);
@@ -63,7 +66,7 @@ export default class contenedorFirebase {
 
   async deleteAll() {
     try {
-      const borrarTodo = await query.doc().delete();
+      const borrarTodo = await this.coleccion.doc().delete();
 
       console.log("Data eliminada", borrarTodo);
     } catch (error) {
@@ -74,7 +77,7 @@ export default class contenedorFirebase {
   async deleteById(id) {
     try {
       let idUsuario = id;
-      const usuario = await query.doc(`${idUsuario}`).delete();
+      const usuario = await this.coleccion.doc(`${idUsuario}`).delete();
 
       console.log("Eliminado", usuario);
     } catch (error) {

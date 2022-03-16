@@ -12,8 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "firebase-admin": "^10.0.2",
+    "joi": "^17.6.0",
+    "moment": "^2.29.1",
     "mongodb": "^4.4.1",
     "mongoose": "^6.2.5"
   }
