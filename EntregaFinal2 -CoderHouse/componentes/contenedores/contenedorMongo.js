@@ -3,17 +3,20 @@ import config from "../../config/index.js";
 import moment from "moment";
 
 await mongoose.connect(`${config.mongodb.conexion}`);
-
+let id = 0;
 export default class contenedorMongo {
   constructor(nombre, schema) {
     this.coleccion = mongoose.model(nombre, schema);
   }
 
   async save(newElement) {
+    id++;
+    newElement.productos = [];
     newElement.timestamp = moment(new Date()).format("DD/MM/YY HH:mm");
+    newElement.id = id;
     try {
       const nuevoProd = await this.coleccion.create(newElement);
-      console.log(nuevoProd);
+
       return nuevoProd;
     } catch (error) {
       throw new Error(`Error al crear: ${error}`);
@@ -31,12 +34,8 @@ export default class contenedorMongo {
 
   async listarID(id) {
     try {
-      let prodBuscado = await this.coleccion.find({ _id: id });
-      if (prodBuscado.length == 0) {
-        return "Producto no encontrado";
-      } else {
-        return prodBuscado;
-      }
+      let prodBuscado = await this.coleccion.find({ id: parseInt(id) });
+      return prodBuscado;
     } catch (error) {
       console.error(`Error al listar el producto: ${error}`);
     }
@@ -44,8 +43,9 @@ export default class contenedorMongo {
 
   async update(id, newData) {
     try {
-      await this.coleccion.replaceOne({ _id: id }, newData);
-      const prodActualizado = await this.coleccion.find({ _id: id });
+      newData.id = parseInt(id);
+      await this.coleccion.replaceOne({ id: parseInt(id) }, newData);
+      const prodActualizado = await this.coleccion.find({ id: parseInt(id) });
       return prodActualizado;
     } catch (error) {
       console.error(`Error al actualizar ${error}`);
@@ -54,6 +54,7 @@ export default class contenedorMongo {
 
   async deleteAll() {
     try {
+      id = 0;
       await this.coleccion.deleteMany({});
       return "Productos eliminados";
     } catch (error) {
@@ -63,7 +64,7 @@ export default class contenedorMongo {
 
   async deleteById(id) {
     try {
-      await this.coleccion.deleteOne({ _id: id });
+      await this.coleccion.deleteMany({ id: parseInt(id) });
       return "Producto eliminado";
     } catch (error) {
       console.error(`Error al borrar ${error}`);
