@@ -1,5 +1,6 @@
 import admin from "firebase-admin";
 import moment from "moment";
+import config from "../../config/index.js";
 
 admin.initializeApp({
   credential: admin.credential.cert(config.firebase),
@@ -20,7 +21,7 @@ export default class contenedorFirebase {
         resultado.push({ id: doc.id, ...doc.data });
       });
 
-      console.log(resultado);
+      return resultado;
     } catch (error) {
       console.log(`Error al listar todo: ${error}`);
     }
@@ -33,7 +34,7 @@ export default class contenedorFirebase {
       if (!buscado.exists) {
         console.log("Error al buscar.");
       } else {
-        console.log(buscado);
+        return buscado;
       }
     } catch (error) {
       console.log(`Error al buscar: ${error}`);
@@ -58,7 +59,7 @@ export default class contenedorFirebase {
     newData.timestamp = moment(new Date()).format("DD/MM/YY HH:mm");
     try {
       const buscado = await this.coleccion.doc(id).set(newData);
-      console.log(buscado);
+      return buscado;
     } catch (error) {
       throw new Error(`Error al actualizar: ${error}`);
     }
@@ -68,7 +69,7 @@ export default class contenedorFirebase {
     try {
       const borrarTodo = await this.coleccion.doc().delete();
 
-      console.log("Data eliminada", borrarTodo);
+      return "Data eliminada", borrarTodo;
     } catch (error) {
       console.log(`Error al borrar: ${error}`);
     }
@@ -79,7 +80,7 @@ export default class contenedorFirebase {
       let idUsuario = id;
       const usuario = await this.coleccion.doc(`${idUsuario}`).delete();
 
-      console.log("Eliminado", usuario);
+      return "Eliminado", usuario;
     } catch (error) {
       console.log(`Error al borrar: ${error}`);
     }

@@ -1,1 +1,1 @@
-[{"nombre":"cambiado por juan","descripcion":"2123123","codigo":"21312","precio":"1119","stock":"11","foto":"foto","id":1,"timeStamp":1645739807967},{"nombre":"ss","descripcion":"2123123","codigo":"21312","precio":"9","stock":"1","foto":"","id":2},{"nombre":"Prod pusheado ahora","precio":357,"foto":"esuna-img","id":3,"timeStamp":1645569315902}]
+[{"id":1,"timeStamp":1647466557378}]

@@ -1,4 +1,4 @@
-import contenedorMongo from "../../contenedores/contenedorMongo.js";
+import contenedorMongo from "../contenedores/contenedorMongo.js";
 import prodSchema from "./prodSchema.js";
 
 export default class ProdDaoMongo extends contenedorMongo {

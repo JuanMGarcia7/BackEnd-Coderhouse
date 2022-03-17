@@ -1,31 +1,31 @@
 import { Router } from "express";
 import { productsDao } from "../../daos/index.js";
-const productos = new Router();
+const rutaProd = new Router();
 
 export default (app) => {
-  app.use("/api/productos", productos);
+  app.use("/api/productos", rutaProd);
 
-  productos.get("/", async (req, res) => {
+  rutaProd.get("/", async (req, res) => {
     res.json(await productsDao.listarAll());
   });
 
-  productos.get("/:id", async (req, res) => {
+  rutaProd.get("/:id", async (req, res) => {
     res.json(await productsDao.listarID(req.params.id));
   });
 
-  productos.post("/", async (req, res) => {
+  rutaProd.post("/", async (req, res) => {
     res.json(await productsDao.save(req.body));
   });
 
-  productos.put("/:id", async (req, res) => {
+  rutaProd.put("/:id", async (req, res) => {
     res.json(await productsDao.update(req.params.id, req.body));
   });
 
-  productos.delete("/", async (req, res) => {
+  rutaProd.delete("/", async (req, res) => {
     res.json(await productsDao.deleteAll());
   });
 
-  productos.delete("/:id", async (req, res) => {
+  rutaProd.delete("/:id", async (req, res) => {
     res.json(await productsDao.deleteById(req.params.id));
   });
 };

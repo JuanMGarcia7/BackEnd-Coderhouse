@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import config from "../../configs/index.js";
+import config from "../../config/index.js";
 import moment from "moment";
 
 await mongoose.connect(`${config.mongodb.conexion}`);
@@ -23,7 +23,7 @@ export default class contenedorMongo {
   async listarAll() {
     try {
       let listaDeProds = await this.coleccion.find({});
-      console.log(listaDeProds);
+      return listaDeProds;
     } catch (error) {
       throw new Error(`Error al listar todo: ${error}`);
     }
@@ -33,9 +33,9 @@ export default class contenedorMongo {
     try {
       let prodBuscado = await this.coleccion.find({ _id: id });
       if (prodBuscado.length == 0) {
-        console.log("Producto no encontrado");
+        return "Producto no encontrado";
       } else {
-        console.log(prodBuscado);
+        return prodBuscado;
       }
     } catch (error) {
       console.error(`Error al listar el producto: ${error}`);
@@ -46,7 +46,7 @@ export default class contenedorMongo {
     try {
       await this.coleccion.replaceOne({ _id: id }, newData);
       const prodActualizado = await this.coleccion.find({ _id: id });
-      console.log(prodActualizado);
+      return prodActualizado;
     } catch (error) {
       console.error(`Error al actualizar ${error}`);
     }
@@ -55,7 +55,7 @@ export default class contenedorMongo {
   async deleteAll() {
     try {
       await this.coleccion.deleteMany({});
-      console.log("Productos eliminados");
+      return "Productos eliminados";
     } catch (error) {
       console.error(`Error al borrar ${error}`);
     }
@@ -64,7 +64,7 @@ export default class contenedorMongo {
   async deleteById(id) {
     try {
       await this.coleccion.deleteOne({ _id: id });
-      console.log("Producto eliminado");
+      return "Producto eliminado";
     } catch (error) {
       console.error(`Error al borrar ${error}`);
     }

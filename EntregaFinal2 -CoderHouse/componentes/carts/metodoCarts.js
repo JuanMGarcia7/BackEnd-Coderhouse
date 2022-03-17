@@ -28,7 +28,7 @@ export default (app) => {
   // Products in cart
   cart.post("/:id/productos", async (req, res) => {
     const cart = await cartsDao.listarID(req.params.id);
-    const product = await productsDao.listarID(req.body.id);
+    const product = await prodDao.listarID(req.body.id);
     cart.productos.push(product);
     await cartsDao.update(req.params.id, cart);
     res.json(cart);
@@ -36,7 +36,7 @@ export default (app) => {
 
   cart.get("/:id/productos", async (req, res) => {
     const cart = await cartsDao.list(req.params.id);
-    res.json(cart.products);
+    res.json(cart.productos);
   });
 
   cart.delete("/:id/products/:id_prod", async (req, res) => {

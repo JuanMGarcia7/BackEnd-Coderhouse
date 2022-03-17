@@ -1,9 +1,8 @@
 const fs = require("fs");
 
 class ContenedorProducts {
-  constructor(nombre, lista) {
-    this.nombre = nombre;
-    this.lista = lista;
+  constructor() {
+    this.ruta = "src/persistenciaInfo/productos.json";
   }
   //para el GET
   listar(id) {
@@ -13,7 +12,7 @@ class ContenedorProducts {
   }
 
   listarAll() {
-    const objs = JSON.parse(fs.readFileSync("productos.txt", "utf-8"));
+    const objs = JSON.parse(fs.readFileSync(this.ruta, "utf-8"));
     return objs;
   }
 
@@ -32,7 +31,7 @@ class ContenedorProducts {
     objs.push(newObj);
 
     try {
-      fs.writeFileSync("productos.txt", JSON.stringify(objs, null, 2));
+      fs.writeFileSync(this.ruta, JSON.stringify(objs, null, 2));
       return newId;
     } catch (error) {
       throw new Error("Error al guardar");
@@ -52,7 +51,7 @@ class ContenedorProducts {
       objs[i].id = i + 1;
     }
     try {
-      fs.writeFileSync("productos.txt", JSON.stringify(objs, null, 2));
+      fs.writeFileSync(this.ruta, JSON.stringify(objs, null, 2));
     } catch (error) {
       throw new Error("Error detectado!");
     }
@@ -60,12 +59,11 @@ class ContenedorProducts {
 
   async borrarAll() {
     try {
-      fs.writeFileSync("productos.txt", JSON.stringify([], null, 2));
+      fs.writeFileSync(this.ruta, JSON.stringify([], null, 2));
     } catch (error) {
       throw new Error("Error detectado!");
     }
   }
 }
 
-const contenedor = new ContenedorProducts("Listado", []);
 module.exports = ContenedorProducts;
