@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { productsDao } from "../../daos/index.js";
+
 import productosApi from "../../daos/daoProductos.js";
+/* import productosApi from "../../daos/daoProductosFB.js";  */
 const rutaProd = new Router();
 
 export default (app) => {
@@ -12,7 +13,6 @@ export default (app) => {
 
   rutaProd.get("/:id", async (req, res) => {
     let id = req.params.id;
-
     res.json(await productosApi.listarID(id));
   });
 

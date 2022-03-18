@@ -37,7 +37,7 @@ export default class contenedorMongo {
       let prodBuscado = await this.coleccion.find({ id: parseInt(id) });
       return prodBuscado;
     } catch (error) {
-      console.error(`Error al listar el producto: ${error}`);
+      console.error(`Error al listar: ${error}`);
     }
   }
 
@@ -56,7 +56,7 @@ export default class contenedorMongo {
     try {
       id = 0;
       await this.coleccion.deleteMany({});
-      return "Productos eliminados";
+      return "Eliminados";
     } catch (error) {
       console.error(`Error al borrar ${error}`);
     }
@@ -65,7 +65,16 @@ export default class contenedorMongo {
   async deleteById(id) {
     try {
       await this.coleccion.deleteMany({ id: parseInt(id) });
-      return "Producto eliminado";
+      return `El id:${id} fue eliminado`;
+    } catch (error) {
+      console.error(`Error al borrar ${error}`);
+    }
+  }
+
+  async DeletProdInCart(id) {
+    try {
+      await this.coleccion.deleteMany({ id: parseInt(id) });
+      return `El id:${id} fue eliminado`;
     } catch (error) {
       console.error(`Error al borrar ${error}`);
     }

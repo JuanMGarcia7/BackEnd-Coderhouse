@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { cartsDao, productsDao } from "../../daos/index.js";
 import cartsApi from "../../daos/daoCarrito.js";
 import productosApi from "../../daos/daoProductos.js";
 
@@ -27,7 +26,6 @@ export default (app) => {
     res.json(await cartsApi.deleteById(req.params.id));
   });
 
-  // Products in cart
   cart.post("/:id/productos", async (req, res) => {
     let cart = await cartsApi.listarID(req.params.id);
     let product = await productosApi.listarID(req.body.id);
@@ -38,20 +36,14 @@ export default (app) => {
   });
 
   cart.get("/:id/productos", async (req, res) => {
-    const cart = await cartsApi.list(req.params.id);
-    res.json(cart.productos);
+    const cart = await cartsApi.listarAll(req.params.id);
+    res.json(cart[0].productos);
   });
 
-  cart.delete("/:id/products/:id_prod", async (req, res) => {
+  cart.delete("/:id/productos/:id_prod", async (req, res) => {
     const cart = await cartsApi.listarID(req.params.id);
-    /*  const index = cart.productos.findIndex(
-      (id) => id.productos == req.params.productCode
-    );
-    if (index != -1) {
-      cart.productos.splice(index, 1);
-      await cartsDao.update(req.params.id, cart);
-    } */
-    const buscado = await cartsApi.deleteById(req.params.id_prod);
-    res.json(cart, buscado);
+    cart[0].productos = await cartsApi.deleteById(req.params.id_prod);
+    await cartsApi.update(req.params.id, cart[0]);
+    res.json(cart[0]);
   });
 };
