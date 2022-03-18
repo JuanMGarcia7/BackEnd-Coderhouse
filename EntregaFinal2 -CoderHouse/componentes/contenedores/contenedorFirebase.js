@@ -35,7 +35,7 @@ export default class contenedorFirebase {
       if (!buscado.exists) {
         console.log("Error al buscar.");
       } else {
-        return buscado;
+        return buscado.data();
       }
     } catch (error) {
       console.log(`Error al buscar: ${error}`);
@@ -47,6 +47,7 @@ export default class contenedorFirebase {
     newElement.productos = [];
     newElement.timestamp = moment(new Date()).format("DD/MM/YY HH:mm");
     newElement.id = id;
+
     try {
       const doc = await this.coleccion.add(newElement);
       return { ...newElement, id: doc.id };
@@ -71,6 +72,7 @@ export default class contenedorFirebase {
       const ids = docs.map((doc) => doc.id);
       const deleteDocs = ids.map((id) => this.deleteById(id));
       await Promise.allSettled(deleteDocs);
+      return "eliminados";
     } catch (error) {
       console.log(`Error al borrar: ${error}`);
     }
@@ -78,8 +80,7 @@ export default class contenedorFirebase {
 
   async deleteById(id) {
     try {
-      let idUsuario = id;
-      const usuario = await this.coleccion.doc(`${idUsuario}`).delete();
+      const usuario = await this.coleccion.doc(id).delete();
 
       return "Eliminado", usuario;
     } catch (error) {
