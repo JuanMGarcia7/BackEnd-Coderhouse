@@ -7,6 +7,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+let id = 0;
 
 export default class contenedorFirebase {
   constructor(coleccion) {
@@ -41,15 +42,14 @@ export default class contenedorFirebase {
     }
   }
 
-  async guardar(newElement) {
+  async save(newElement) {
+    id++;
+    newElement.productos = [];
     newElement.timestamp = moment(new Date()).format("DD/MM/YY HH:mm");
+    newElement.id = id;
     try {
       const doc = await this.coleccion.add(newElement);
       return { ...newElement, id: doc.id };
-
-      //  O ESTO
-      /* const doc = query.doc();
-      await doc.create(newElement); */
     } catch (error) {
       console.log(`Error al guardar: ${error}`);
     }
@@ -67,9 +67,10 @@ export default class contenedorFirebase {
 
   async deleteAll() {
     try {
-      const borrarTodo = await this.coleccion.doc().delete();
-
-      return "Data eliminada", borrarTodo;
+      const docs = await this.listarAll();
+      const ids = docs.map((doc) => doc.id);
+      const deleteDocs = ids.map((id) => this.deleteById(id));
+      await Promise.allSettled(deleteDocs);
     } catch (error) {
       console.log(`Error al borrar: ${error}`);
     }

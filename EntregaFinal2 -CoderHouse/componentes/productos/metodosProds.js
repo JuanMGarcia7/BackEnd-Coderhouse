@@ -1,7 +1,5 @@
 import { Router } from "express";
-
-import productosApi from "../../daos/daoProductos.js";
-/* import productosApi from "../../daos/daoProductosFB.js";  */
+import { productosApi } from "../../daos/index.js";
 const rutaProd = new Router();
 
 export default (app) => {

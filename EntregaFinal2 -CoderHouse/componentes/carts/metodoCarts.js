@@ -1,6 +1,5 @@
 import { Router } from "express";
-import cartsApi from "../../daos/daoCarrito.js";
-import productosApi from "../../daos/daoProductos.js";
+import { cartsApi, productosApi } from "../../daos/index.js";
 
 const cart = new Router();
 export default (app) => {
