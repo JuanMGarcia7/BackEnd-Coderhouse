@@ -3,6 +3,10 @@ dotenv.config();
 const MONGO_DB = process.env.MONGOURL;
 
 export default {
+  fileSystem: {
+    carritosPath: "fs/carritos.json",
+    productosPath: "fs/productos.json",
+  },
   mongodb: {
     conexion: MONGO_DB,
   },

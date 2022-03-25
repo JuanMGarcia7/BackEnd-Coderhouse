@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { productosApi } from "../../daos/index.js";
+import { productosApi } from "../daos/index.js";
+import admin from "../middleware/admin.js";
 const rutaProd = new Router();
 
 export default (app) => {
@@ -14,19 +15,19 @@ export default (app) => {
     res.json(await productosApi.listarID(id));
   });
 
-  rutaProd.post("/", async (req, res) => {
+  rutaProd.post("/", admin, async (req, res) => {
     res.json(await productosApi.save(req.body));
   });
 
-  rutaProd.put("/:id", async (req, res) => {
+  rutaProd.put("/:id", admin, async (req, res) => {
     res.json(await productosApi.update(req.params.id, req.body));
   });
 
-  rutaProd.delete("/", async (req, res) => {
+  rutaProd.delete("/", admin, async (req, res) => {
     res.json(await productosApi.deleteAll());
   });
 
-  rutaProd.delete("/:id", async (req, res) => {
+  rutaProd.delete("/:id", admin, async (req, res) => {
     res.json(await productosApi.deleteById(req.params.id));
   });
 };

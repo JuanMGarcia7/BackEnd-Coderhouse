@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { cartsApi, productosApi } from "../../daos/index.js";
+import { cartsApi, productosApi } from "../daos/index.js";
+import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -28,21 +29,20 @@ export default (app) => {
   });
 
   cart.post("/:id/productos", async (req, res) => {
-    /*EN FB ANDA
-     let cart = await cartsApi.listarID(req.params.id);
-    let product = await productosApi.listarID(req.body.id);
-
-    cart.productos.push(product);
-    await cartsApi.update(req.params.id, cart);
-    res.json(cart); */
     if (process.env.DB === "firebase") {
       let cart = await cartsApi.listarID(req.params.id);
       let product = await productosApi.listarID(req.body.id);
-      console.log(cart);
-      console.log(product);
 
       cart.productos.push(product);
       await cartsApi.update(req.params.id, cart);
+      res.json(cart);
+    } else if (process.env.DB === "fileSystem") {
+      let cart = await cartsApi.listarID(req.params.id);
+      let product = await productosApi.listarID(req.body.id);
+
+      cart.productos.push(product);
+      await cartsApi.update(req.params.id, cart);
+      fs.writeFileSync("fs/carritos.json", JSON.stringify(cart, null, 2));
       res.json(cart);
     } else {
       let cart = await cartsApi.listarID(req.params.id);
@@ -56,7 +56,6 @@ export default (app) => {
 
   cart.get("/:id/productos", async (req, res) => {
     const cart = await cartsApi.listarID(req.params.id);
-    console.log(cart);
     res.json(cart.productos);
   });
 

@@ -11,7 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use(cors(`${process.env.PORT}`));
-routers(app);
+routers(app, (err) => {
+  throw err;
+});
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Servido escuchando en el puerto ${PORT}`));

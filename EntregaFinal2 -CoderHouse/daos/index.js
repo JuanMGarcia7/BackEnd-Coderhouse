@@ -22,4 +22,15 @@ if (`${process.env.DB}` === "firebase") {
   productosApi = new ProdDaoFB();
   cartsApi = new CarritoDaoFB();
 }
+
+if (`${process.env.DB}` === "fileSystem") {
+  const { default: ProdDaoFS } = await import(
+    "../componentes/productos/ProdDaoFS.js"
+  );
+  const { default: CarritoDaoFS } = await import(
+    "../componentes/carts/CarritoDaoFS.js"
+  );
+  productosApi = new ProdDaoFS();
+  cartsApi = new CarritoDaoFS();
+}
 export { productosApi, cartsApi };

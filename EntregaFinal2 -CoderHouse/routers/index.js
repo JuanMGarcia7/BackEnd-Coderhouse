@@ -1,8 +1,11 @@
-import metodoCarts from "../componentes/carts/metodoCarts.js";
-import metodosProds from "../componentes/productos/metodosProds.js";
+import metodoCarts from "./metodoCarts.js";
+import metodosProds from "./metodosProds.js";
 
 export default (app) => {
-  metodosProds(app);
+  metodosProds(app),
+    (err) => {
+      throw err;
+    };
   metodoCarts(app);
   app.get("*", (req, res) =>
     res.status(404).json({
