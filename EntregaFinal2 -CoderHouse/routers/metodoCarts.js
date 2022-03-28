@@ -64,6 +64,6 @@ export default (app) => {
     console.log(cart.productos);
     cart.productos = await productosApi.deleteById(req.params.id_prod);
     await cartsApi.update(req.params.id, cart);
-    res.json(cart[0]);
+    res.json("productos borrado");
   });
 };

@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const util = require("util");
+const authHome = require("../public/js/auth.js");
+const homeWebRouter = require("../public/js/home.js");
 
 const { Server: HttpServer } = require("http");
 const { Server: Socket } = require("socket.io");
@@ -14,6 +16,8 @@ const { Server: Socket } = require("socket.io");
 const ContenedorMemoria = require("../contenedores/ContenedorMemoria.js");
 const ContenedorArchivo = require("../contenedores/ContenedorMsjsMDB.js");
 const { Long } = require("mongodb");
+const res = require("express/lib/response");
+const auth = require("../public/js/auth.js");
 
 const prodFaker = new Router();
 const app = express();
@@ -61,10 +65,10 @@ io.on("connection", async (socket) => {
     mensaje.fyh = moment().format("MMMM Do YYYY, h:mm:ss a");
     await mensajesApi.save(mensaje);
     const originalData = await mensajesApi.listAll();
-    console.log(JSON.stringify(originalData).length);
+    /* console.log(JSON.stringify(originalData).length); */
     const normalizedData = normalize(originalData, centroDeMensajes);
     print(normalizedData);
-    console.log(JSON.stringify(normalizedData).length);
+    /* console.log(JSON.stringify(normalizedData).length); */
     /*     const desnormalizedData = denormalize(
       normalizedData.result,
       centroDeMensajes,
@@ -135,3 +139,8 @@ prodFaker.use("/", (req, res) => {
   }); */
   res.json(prods);
 });
+
+//pruebas
+app.set("view engine", "ejs");
+app.use(authHome);
+app.use(homeWebRouter);
