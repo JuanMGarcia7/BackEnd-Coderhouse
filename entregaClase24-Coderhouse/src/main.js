@@ -15,9 +15,6 @@ const { Server: Socket } = require("socket.io");
 
 const ContenedorMemoria = require("../contenedores/ContenedorMemoria.js");
 const ContenedorArchivo = require("../contenedores/ContenedorMsjsMDB.js");
-const { Long } = require("mongodb");
-const res = require("express/lib/response");
-const auth = require("../public/js/auth.js");
 
 const prodFaker = new Router();
 const app = express();
@@ -65,16 +62,16 @@ io.on("connection", async (socket) => {
     mensaje.fyh = moment().format("MMMM Do YYYY, h:mm:ss a");
     await mensajesApi.save(mensaje);
     const originalData = await mensajesApi.listAll();
-    /* console.log(JSON.stringify(originalData).length); */
+
     const normalizedData = normalize(originalData, centroDeMensajes);
     print(normalizedData);
-    /* console.log(JSON.stringify(normalizedData).length); */
+
     /*     const desnormalizedData = denormalize(
       normalizedData.result,
       centroDeMensajes,
       normalizedData.entities
-    );
-    console.log(JSON.stringify(desnormalizedData).length); */
+    );*/
+
     io.sockets.emit("mensajes", await mensajesApi.listAll());
   });
 });
@@ -102,9 +99,7 @@ app.use(
 
 const PORT = 8080;
 const connectedServer = httpServer.listen(PORT, () => {
-  console.log(
-    `Servidor http escuchando en el puerto ${connectedServer.address().port}`
-  );
+  console.log(`Escuchando en ${connectedServer.address().port}`);
 });
 connectedServer.on("error", (error) =>
   console.log(`Error en servidor ${error}`)
