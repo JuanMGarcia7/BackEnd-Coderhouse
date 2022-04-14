@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Info</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Informacion!</h1>
+    <ul>
+      <li>Argumentos de entrada: <%= argumentoDeEntrada %></li>
+      <li>Path de ejecución: <%= pathDeEjecucion %></li>
+      <li>Nombre de la plataforma (sistema operativo): <%= sistOp %></li>
+      <li>Process id: <%= ProcID %></li>
+      <li>Versión de node.js: <%= nodeVersion %></li>
+      <li>Carpeta del proyecto: <%= carpetaDelProyecto %></li>
+      <li>Memoria total reservada (rss): <%= memTotal %></li>
+    </ul>
+    <script src="js/main.js"></script>
+  </body>
+</html>
