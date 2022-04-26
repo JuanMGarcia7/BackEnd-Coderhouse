@@ -18,6 +18,12 @@ const { fork } = require("child_process");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const cluster = require("cluster");
+const { cpus } = require("os");
+const process = require("process");
+
+const numCPUs = cpus().length;
+
 const { Server: HttpServer } = require("http");
 const { Server: Socket } = require("socket.io");
 
@@ -33,9 +39,35 @@ const productosApi = new ContenedorMemoria();
 const mensajesApi = new ContenedorArchivo();
 
 //=============minimist ==========================
-const options = { alias: { p: "puerto" } };
+const options = { alias: { p: "puerto", m: "modo" } };
 const args = minimist(process.argv.slice(2), options);
-console.log(args.puerto);
+
+//MODO CLUSTER
+const PORT = args.puerto || 8080;
+
+if (args.modo == "CLUSTER") {
+  httpServer.listen(PORT, () => {
+    console.log(`Server is run on port ${PORT} in proces ${process.pid}`);
+  });
+  httpServer.on("error", (error) => console.log(`Error en servidor ${error}`));
+} else {
+  if (cluster.isMaster) {
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork();
+    }
+
+    cluster.on("exit", (worker, Code, signal) => {
+      console.log(`worker ${worker.process.pid} finalizo`);
+    });
+  } else {
+    httpServer.listen(PORT, () => {
+      console.log(`server corriendo en  ${PORT} con id proceso ${process.pid}`);
+    });
+    httpServer.on("error", (error) =>
+      console.log(`Error en servidor ${error}`)
+    );
+  }
+}
 
 //--normalizr
 function print(objeto) {
@@ -79,12 +111,6 @@ io.on("connection", async (socket) => {
     const normalizedData = normalize(originalData, centroDeMensajes);
     print(normalizedData);
 
-    /*     const desnormalizedData = denormalize(
-      normalizedData.result,
-      centroDeMensajes,
-      normalizedData.entities
-    );*/
-
     io.sockets.emit("mensajes", await mensajesApi.listAll());
   });
 });
@@ -104,14 +130,6 @@ app.use(
       maxAge: 60000,
     },
   })
-);
-
-const PORT = args.puerto;
-const connectedServer = httpServer.listen(PORT, () => {
-  console.log(`Escuchando en ${connectedServer.address().port}`);
-});
-connectedServer.on("error", (error) =>
-  console.log(`Error en servidor ${error}`)
 );
 
 //prod con faker

@@ -1,0 +1,9 @@
+INICIO EN MODO CLUSTER
+node src/main.js -p 8000 -m CLUSTER        ----------> -p posee un alias, y hace referencia al port. Mientras que -m indica el modo, en este caso CLUSTER.
+
+INICIO EN MODO FORK
+node src/main.js -p 8000                   ----------> no pasarle el -m hara que el servidor se levante en modo fork.
+
+INICIO PM2
+pm2 start src/main.js  --name="entregable30" --watch -i max    -------> Inicia en modo CLUSTER, en el puerto default (8080)
+
