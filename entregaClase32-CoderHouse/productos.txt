@@ -1,0 +1,1 @@
+[{"title":"manzana","price":20,"thumbnail":"manzana-img"},{"title":"boligoma","price":50,"thumbnail":"boligoma-50"},{"title":"carburador","price":200,"thumbnail":"carburador-img"}]
