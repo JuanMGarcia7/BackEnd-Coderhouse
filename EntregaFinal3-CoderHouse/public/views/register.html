@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Ingreso de Productos</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+  </head>
+  <body>
+    <form action="/singup" method="post">
+      <div class="form-group">
+        <label for="nombre">Nombre </label>
+        <input type="nombre" class="form-control" id="nombre" name="nombre" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email </label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp"
+          name="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="contraseña">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          id="contraseña"
+          name="contraseña"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Edad">Edad</label>
+        <input type="number" class="form-control" id="Edad" name="edad" />
+      </div>
+      <div class="form-group">
+        <label for="numeroDeTelefono">Numero de telefono</label>
+        <input
+          type="number"
+          class="form-control"
+          id="numeroDeTelefono"
+          name="numeroDeTelefono"
+        />
+      </div>
+      <div class="form-group">
+        <label for="direccion">Direccion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="direccion"
+          name="direccion"
+        />
+      </div>
+      <div class="form-group">
+        <label for="foto">Foto</label>
+        <input type="text" class="form-control" id="foto" name="foto" />
+      </div>
+      <button
+        type="submit"
+        NumeroDeTelefono
+        class="btn btn-primary"
+        id="buttonToLog"
+      >
+        Submit
+      </button>
+    </form>
+    <script src="../../routes//singup.js"></script>
+  </body>
+</html>

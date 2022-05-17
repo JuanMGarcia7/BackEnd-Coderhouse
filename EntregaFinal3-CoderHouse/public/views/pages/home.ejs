@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Ingreso de Productos</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
+  </head>
+
+  <body>
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Ecommerce</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/cart">Cart</a>
+            </li>
+            <li class="nav-item">
+              <button
+              class="btn btn-deslog  nav-link"
+              onclick="location.href='/logout'"
+            >
+              Desloguear
+            </button>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <%= nombreUsuario %>
+         <!--   ver como -->
+          </span>
+        </div>
+      </nav>
+    </div>
+    <div>
+      <h3>Bienvenidos</h3>
+     
+    </div>
+    <br />
+    <% if(hayProductos){ %>
+      <%productos.forEach(function(producto) {%>
+    <form action="/productos" method="post">
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Nombre del productos: <%=producto.nombre%></h5>
+          <p class="card-text">
+            <ul>
+              <li name="id">ID del productos:<%=producto._id%> </li>
+              <li name="nombre">Nombre del productos: <%=producto.nombre%></li>
+              <li name="precio">Precio del productos: <%=producto.precio%></li>
+            </ul>
+          </p>
+
+          <button type="submit" class="btn btn-primary" id="buttonToCart"
+          >
+            Agregar al carrito
+          </button>
+      ;
+        </div>
+        <%});%>
+      <%} else{ %>
+        <h3 class="alert alert-warning">No se encontraron productos</h3>
+        <% } %>
+      </div>
+    </form>
+  </body>
+</html>
