@@ -6,11 +6,14 @@ import logout from "../routes/logout.js";
 import cartRout from "../routes/cart.js";
 import passport from "passport";
 import session from "express-session";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(login);
@@ -21,11 +24,16 @@ app.use(cartRout);
 
 app.set("view engine", "ejs");
 
+app.use(cookieParser());
 app.use(
   session({
-    secret: "mysecretsession",
+    secret: "shhhhhhhhhhhhhhhhhhhhh",
     resave: false,
     saveUninitialized: false,
+    rolling: true,
+    cookie: {
+      maxAge: 60000,
+    },
   })
 );
 app.use(passport.initialize());

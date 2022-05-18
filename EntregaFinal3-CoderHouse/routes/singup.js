@@ -20,6 +20,7 @@ const transporter = createTransport({
 });
 
 singup.post("/singup", async (req, res) => {
+  const listaDeUsuarios = await register.listAll();
   let contraseña = req.body.contraseña;
   let contraseñaHash = await bcryptjs.hash(contraseña, 8);
   const usuario = {
@@ -30,6 +31,7 @@ singup.post("/singup", async (req, res) => {
     foto: req.body.foto,
     direccion: req.body.direccion,
     edad: req.body.edad,
+    id: listaDeUsuarios.length + 1,
   };
   //PONER PARA QUE SEAN OBLIGATORIOS TODOS LOS CAMPOS
   const yaExiste = listaUsuarios.find((e) => e.email == usuario.email);

@@ -7,3 +7,26 @@
     height: 250px;
     padding-top: 3%;
 }
+
+.registroTitulo{
+    text-align: center;
+    size: 15px;
+    
+}
+.form-total{
+    padding-top: 15%;
+    width: 40%;
+    margin: auto;
+}
+.form-total-registro{
+    padding-top: 5%;
+    width: 40%;
+    margin: auto;
+}
+
+
+.btnLogin{
+    color: black;
+    border: 1px solid black;
+    background-color: gray;
+}

@@ -2,16 +2,9 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import ContenedorMongoDB from "../../contenedores/user/usersMongoDB.js";
 import bcryptjs from "bcryptjs";
+import Strategy from "passport-local";
 
 const user = new ContenedorMongoDB();
-passport.serializeUser((userBuscado, done) => {
-  done(null, userBuscado[0].email);
-});
-
-passport.deserializeUser(async (email, done) => {
-  const usuario = await user.findUser({ email });
-  done(null, usuario);
-});
 
 passport.use(
   "register",
@@ -55,7 +48,8 @@ passport.use(
       if (!userBuscado) {
         console.log("NO ESTA!!!");
       }
-      /*  if (
+      /*   REVISARR!!!
+    if (
         bcryptjs.compareSync(contraseña.body.contraseña, userBuscado.contraseña)
       ) {
         return done(null, false, console.log("Incorrect Password"));
@@ -65,5 +59,17 @@ passport.use(
     }
   )
 );
+
+passport.serializeUser((userBuscado, done) => {
+  console.log("serializeUser");
+
+  done(null, userBuscado[0].email);
+});
+
+passport.deserializeUser(async (id, done) => {
+  console.log("deserializeUser");
+  const usuario = await user.findUser(id);
+  done(null, usuario);
+});
 
 export default passport;

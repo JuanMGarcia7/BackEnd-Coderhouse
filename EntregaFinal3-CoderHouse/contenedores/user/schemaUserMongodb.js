@@ -1,7 +1,6 @@
 import mongodb from "../../config/config.js";
 import mongoose from "mongoose";
 const { Schema } = mongoose;
-
 mongoose.connect(`${mongodb.conexion}`);
 
 const usersSchema = new Schema({
@@ -12,6 +11,7 @@ const usersSchema = new Schema({
   direccion: { type: String, required: true },
   numeroDeTelefono: { type: Number, required: true },
   foto: { type: String, required: true },
+  id: { type: Number, required: true },
 });
 
 usersSchema.methods.comparePassword = function (contraseña) {

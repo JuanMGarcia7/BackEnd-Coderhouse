@@ -41,7 +41,7 @@ homeRouter.post("/productos", async (req, res) => {
   const carrito = await carts.listAll();
   if (carrito.length === 0) {
     const newElement = {};
-    carts.crear(newElement);
+    await carts.crear(newElement);
     console.log("Cart creado");
   } else {
     console.log("ya tenes un carrito");

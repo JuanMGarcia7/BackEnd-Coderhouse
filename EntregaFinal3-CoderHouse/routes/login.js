@@ -48,7 +48,6 @@ login.post(
   passport.authenticate("login", {
     successRedirect: "/home",
     failureRedirect: "/singup",
-    passReqToCallback: true,
   })
 );
 

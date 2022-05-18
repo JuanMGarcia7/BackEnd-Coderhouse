@@ -167,10 +167,13 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
+  console.log("serializeUser");
   cb(null, user);
 });
 
 passport.deserializeUser((obj, cb) => {
+  console.log("deserializeUser");
+
   cb(null, obj);
 });
 

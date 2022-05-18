@@ -3,6 +3,7 @@ import path from "path";
 import ContenedorCartMongoDB from "../contenedores/cart/cartMongoDB.js";
 import { client, transporter } from "../public/js/msjCarrito.js";
 import webAuth from "../public/auth/index.js";
+import cart from "../contenedores/cart/schemaCartMongoDB.js";
 
 const cartRout = new Router();
 const carts = new ContenedorCartMongoDB();
@@ -20,20 +21,48 @@ cartRout.get("/cart", webAuth, async (req, res) => {
 //COMO SACO LA INDEXACION??
 
 cartRout.post("/compra-realizada", async (req, res) => {
+  const cartTotal = await carts.listAll();
+
   const mailOptions = {
     from: "Servidor Node.js",
     to: TEST_MAIL,
     subject: "Nuevo pedido",
-    html: `<h1 style="color: blue;">Informacion de compra!</h1>
-          <div>
-           <ul>Datos:
-           <li> Nombre:ACA VA EL NOMBRE</li>
-           <li> Nombre:ACA VA EL EMAIL</li>
-           <li> Nombre:ACA EL CARRO </li>
-      
-           </ul>
-           </div>
-           `,
+    html: `<div>
+    <h3>Gracias por su compra!</h3>
+  </div>
+  <div class="container mt-3">
+    <div class="jumbotron">
+      <h1>Lista de Productos</h1>
+      <br />
+
+      <% if(${cartTotal.length != 0}){ %>
+      <div class="table-responsive">
+        <table class="table table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Foto</th>
+          </tr>
+          <%productos.forEach(function(producto) {%>
+          <tr>
+            <td><%=producto.nombre%></td>
+            <td><%=producto.precio%></td>
+            <td>
+              <img
+                width="50"
+                alt="not
+              found"
+              />
+            </td>
+          </tr>
+          <%});%>
+        </table>
+      </div>
+      <% } else{ %>
+      <h3 class="alert alert-warning">No se encontraron productos</h3>
+      <% } %>
+    </div>
+  </div>`,
   };
   const options = {
     body: `Nuevo pedido! 
@@ -53,6 +82,11 @@ cartRout.post("/compra-realizada", async (req, res) => {
     console.log(error);
   }
   res.sendFile(path.join(process.cwd(), "/public/views/compra.html"));
+});
+
+cartRout.post("/carrito-vacio", async (req, res) => {
+  await carts.deleteAll();
+  res.send("cart vacio!");
 });
 
 export default cartRout;
