@@ -1,10 +1,9 @@
-function webAuth(req, res, next) {
-  if (req.session?.nombre) {
-    console.log(req.session);
-    next();
-  } else {
-    res.redirect("/login");
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
   }
+
+  res.redirect("/");
 }
 
-export default webAuth;
+export default isAuthenticated;

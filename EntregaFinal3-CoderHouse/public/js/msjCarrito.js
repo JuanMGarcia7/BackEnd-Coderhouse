@@ -1,9 +1,11 @@
-import twilio from "twilio";
-import { createTransport } from "nodemailer";
-const TEST_MAIL = "jmanuelgarciaa.7@gmail.com";
-
-import dotenv from "dotenv";
+/* import twilio from "twilio";
+import { createTransport } from "nodemailer"; */
+const { createTransport } = require("nodemailer");
+const twilio = require("twilio");
+const dotenv = require("dotenv");
 dotenv.config();
+
+const TEST_MAIL = "jmanuelgarciaa.7@gmail.com";
 
 const accountSid = process.env.ACCESOSID;
 const authToken = process.env.ACCESOTOKEN;
@@ -64,6 +66,6 @@ const buttonToCart = document.getElementById("buttonToCart");
 
  */
 
-export { client, transporter };
+module.exports = { client, transporter };
 
 //deberia armar el metodo get del carrito para traer el cart con los carros. Tambien ver la forma de traer los datos del usuario

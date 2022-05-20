@@ -1,5 +1,7 @@
-import cart from "./schemaCartMongoDB.js";
-import moment from "moment";
+/* import cart from "./schemaCartMongoDB.js";
+import logger from "../../public/js/logs.js"; */
+const cart = require("./schemaCartMongoDB.js");
+const logger = require("../../public/js/logs.js");
 let id = 0;
 class ContenedorCartMongoDB {
   constructor() {}
@@ -8,7 +10,7 @@ class ContenedorCartMongoDB {
     try {
       return await cart.find({});
     } catch (error) {
-      throw new Error(`Error al listar todo: ${error}`);
+      throw new Error(logger.error(`Error al listar todo: ${error}`));
     }
   }
 
@@ -20,26 +22,26 @@ class ContenedorCartMongoDB {
     try {
       return await cart.create(newElement);
     } catch (error) {
-      throw new Error(`Error al guardar: ${error}`);
+      throw new Error(logger.error(`Error al guardar: ${error}`));
     }
   }
   async update(id, newData) {
     try {
       await cart.updateOne({ id: id }, { $set: newData });
-      console.log("deberia haber actualizado");
+      logger.info("deberia haber actualizado");
     } catch (error) {
-      console.error(`Error al actualizar ${error}`);
+      new Error(logger.error(`Error al actualizar ${error}`));
     }
   }
   async deleteAll() {
     try {
       id = 0;
       await cart.deleteMany({});
-      return "Eliminados";
+      return logger.info("Eliminados");
     } catch (error) {
-      console.error(`Error al borrar ${error}`);
+      new Error(logger.error(`Error al borrar ${error}`));
     }
   }
 }
 
-export default ContenedorCartMongoDB;
+module.exports = ContenedorCartMongoDB;

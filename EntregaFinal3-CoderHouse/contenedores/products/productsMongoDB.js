@@ -1,4 +1,7 @@
-import products from "./schemaProdMongoDB.js";
+/* import products from "./schemaProdMongoDB.js";
+import logger from "../../public/js/logs.js"; */
+const products = require("./schemaProdMongoDB.js");
+const logger = require("../../public/js/logs.js");
 
 class ContenedorProdMongoDB {
   constructor() {}
@@ -7,14 +10,14 @@ class ContenedorProdMongoDB {
     try {
       return await products.find({});
     } catch (error) {
-      throw new Error(`Error al listar todo: ${error}`);
+      throw new Error(logger.error(`Error al listar todo: ${error}`));
     }
   }
   async findByNombre(nombre) {
     try {
       return await products.find({ nombre: nombre });
     } catch (error) {
-      throw new Error(`Error al listar: ${error}`);
+      throw new Error(logger.error(`Error al listar: ${error}`));
     }
   }
 
@@ -22,9 +25,9 @@ class ContenedorProdMongoDB {
     try {
       return await products.create(newElement);
     } catch (error) {
-      throw new Error(`Error al guardar: ${error}`);
+      throw new Error(logger.error(`Error al guardar: ${error}`));
     }
   }
 }
 
-export default ContenedorProdMongoDB;
+module.exports = ContenedorProdMongoDB;

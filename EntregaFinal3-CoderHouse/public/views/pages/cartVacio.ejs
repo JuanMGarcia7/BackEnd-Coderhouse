@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario de Ingreso de Productos</title>
+    <title>Ecommerce</title>
     <script src="/socket.io/socket.io.js"></script>
     <link
       rel="stylesheet"
@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
 
   </head>
 
@@ -26,10 +27,10 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/home">Home </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cart">Cart</a>
+              <a class="nav-link" href="#">Cart <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <button
@@ -40,47 +41,22 @@
             </button>
             </li>
           </ul>
-          <span class="navbar-text">
-            <%= nombreUsuario %>
-         <!--   ver como -->
-          </span>
         </div>
       </nav>
     </div>
     <div>
-      <h3>Bienvenidos</h3>
+      <h3>Bienvenidos al carrito!</h3>
      
     </div>
-    <br />
-    <div>
-    <% if(hayProductos){ %>
-      <%productos.forEach(function(producto) {%>
-      
-    <form action="/productos/<%=producto._id%>" method="post">
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"><%=producto.nombre%></h5>
-          <p class="card-text">
-            <ul>
-              <li name="id">ID:<%=producto._id%> </li>
-              <li name="nombre">Nombre: <%=producto.nombre%></li>
-              <li name="precio">Precio: <%=producto.precio%></li>
-            </ul>
-          </p>
-
-          <button type="submit" class="btn btn-primary" id="buttonToCart"
-          >
-            Agregar al carrito
-          </button>
-      ;
-        </div>
-        <%});%>
-      <%} else{ %>
-        <h3 class="alert alert-warning">No se encontraron productos</h3>
-        <% } %>
+    <div class="container mt-3">
+      <div class="jumbotron">
+     
+        <h3 class="alert alert-warning">No se encontraron productos</h3>    
       </div>
-    </form>
-  </div>
+    </div>
+            <button type="submit" >
+               <a href="/home">Volver al incio</a> 
+            </button>     
+      </div>
   </body>
 </html>

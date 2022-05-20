@@ -1,14 +1,21 @@
-import { Router } from "express";
+/* import { Router } from "express";
 import path from "path";
 import ContenedorProdMongoDB from "../contenedores/products/productsMongoDB.js";
 import ContenedorCartMongoDB from "../contenedores/cart/cartMongoDB.js";
-import webAuth from "../public/auth/index.js";
+import logger from "../public/js/logs.js"; */
+
+const { Router } = require("express");
+const path = require("path");
+const ContenedorProdMongoDB = require("../contenedores/products/productsMongoDB.js");
+const ContenedorCartMongoDB = require("../contenedores/cart/cartMongoDB.js");
+const logger = require("../public/js/logs.js");
 
 const homeRouter = new Router();
 const productos = new ContenedorProdMongoDB();
 const carts = new ContenedorCartMongoDB();
 
-homeRouter.get("/home", webAuth, async (req, res) => {
+homeRouter.get("/home", async (req, res) => {
+  console.log(req);
   const listaProductos = await productos.listAll();
   res.render(path.join(process.cwd(), "/public/views/pages/home.ejs"), {
     productos: listaProductos,
@@ -29,16 +36,18 @@ homeRouter.post("/home", async (req, res) => {
   const yaExiste = listaProductos.find((e) => e.nombre == producto.nombre);
 
   if (yaExiste) {
-    return res.send({ error: "ya existe este producto" });
+    return logger.error("Ya existe este producto");
   } else {
     productos.save(producto);
   }
 
-  console.log("hecho");
+  logger.info("Producto agregado a la base de datos!");
   res.send(producto);
 });
-homeRouter.post("/productos", async (req, res) => {
-  const carrito = await carts.listAll();
+homeRouter.post("/productos/:id", async (req, res) => {
+  const prodID = req.params.id;
+  console.log(prodID);
+  /*  const carrito = await carts.listAll();
   if (carrito.length === 0) {
     const newElement = {};
     await carts.crear(newElement);
@@ -64,8 +73,8 @@ homeRouter.post("/productos", async (req, res) => {
     listaCarrito[0].id,
     listaCarrito[0]
   );
-  res.send("Carro actualizado");
+  res.redirect("/home"); */
   //DESDE LA PAGINA, CUANDO APRIETO EL BOTON, SUBE AL CARRITO, PERO UN NULL
 });
 
-export default homeRouter;
+module.exports = homeRouter;

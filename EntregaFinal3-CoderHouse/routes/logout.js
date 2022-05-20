@@ -1,10 +1,13 @@
-import { Router } from "express";
+/* import { Router } from "express";
 import path from "path";
+ */
+const { Router } = require("express");
+const path = require("path");
 
 const logout = new Router();
 
 logout.get("/logout", (req, res) => {
-  const nombre = req.session?.nombre;
+  const nombre = " req.session?.nombre";
   if (nombre) {
     res.render(path.join(process.cwd(), "/public/views/pages/logout.ejs"), {
       nombre,
@@ -14,4 +17,4 @@ logout.get("/logout", (req, res) => {
   }
 });
 
-export default logout;
+module.exports = logout;
