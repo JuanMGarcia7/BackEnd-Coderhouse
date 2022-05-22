@@ -1,18 +1,3 @@
-/* import express from "express";
-import login from "../routes/login.js";
-import singup from "../routes/singup.js";
-import homeRouter from "../routes/home.js";
-import logout from "../routes/logout.js";
-import cartRout from "../routes/cart.js";
-import passport from "passport";
-import session from "express-session";
-import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
-import logger from "../public/js/logs.js";
-import cluster from "cluster";
-import { cpus } from "os";
-import HttpServer from "http"; */
-
 const express = require("express");
 const login = require("../routes/login.js");
 const singup = require("../routes/singup.js");
@@ -47,7 +32,7 @@ app.use(cartRout);
 
 app.set("view engine", "ejs");
 
-app.use(cookieParser("secret"));
+app.use(cookieParser());
 app.use(
   session({
     secret: "shhhhhhhhhhhhhhhhhhhhh",
@@ -59,20 +44,8 @@ app.use(
     },
   })
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
-
-/* 
-if (process.env.MODO === "true") {
-  app.listen(port, () => {
-    logger.info(`Server is run on port ${port} in proces ${process.pid}`);
-  });
-} else {
-  app.listen(port, () => {
-    logger.info(`server corriendo en  ${port} con id proceso ${process.pid}`);
-  });
-} */
 
 if (process.env.MODO == "CLUSTER") {
   httpServer.listen(port, () => {

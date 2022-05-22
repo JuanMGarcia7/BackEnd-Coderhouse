@@ -9,6 +9,7 @@ const usersMongoDB = require("../../contenedores/user/usersMongoDB.js");
 const bcryptjs = require("bcryptjs");
 const { createTransport } = require("nodemailer");
 const logger = require("./logs.js");
+const users = require("../../contenedores/user/schemaUserMongodb.js");
 
 const user = new usersMongoDB();
 const TEST_MAIL = "jmanuelgarciaa.7@gmail.com";
@@ -21,12 +22,12 @@ const transporter = createTransport({
   },
 });
 
-passport.serializeUser((usuarioBuscado, done) => {
-  done(null, usuarioBuscado[0].id);
+passport.serializeUser((user, done) => {
+  done(null, user.email);
 });
 
-passport.deserializeUser(async (id, done) => {
-  const usuario = await user.findUser(id);
+passport.deserializeUser((email, done) => {
+  const usuario = users.findOne({ email: email });
   done(null, usuario);
 });
 
@@ -63,15 +64,15 @@ passport.use(
           from: "Servidor Node.js",
           to: TEST_MAIL,
           subject: "Nuevo registro",
-          html: `<h1 style="color: blue;">Informacion  <span style="color: green;">Nuevo registro</span></h1>
+          html: `<h1 style="color: blue;">Informacion nuevo registro</span></h1>
             <div>
              <ul>Datos:
              <li> Nombre:${newUser.nombre}</li>
-             <li> Nombre:${newUser.email}</li>
-             <li> Nombre:${newUser.numeroDeTelefono}</li>
-             <li> Nombre:${newUser.foto}</li>
-             <li> Nombre:${newUser.direccion}</li>
-             <li> Nombre:${newUser.edad}</li>
+             <li> Email:${newUser.email}</li>
+             <li> Numero de telefono:${newUser.numeroDeTelefono}</li>
+             <li> Foto:${newUser.foto}</li>
+             <li> Direccion:${newUser.direccion}</li>
+             <li> Edad:${newUser.edad}</li>
              </ul>
              </div>
              `,
@@ -97,15 +98,15 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, contraseña, done) => {
-      const usuarioBuscado = await user.findUserByEmail(email);
+      const user = await users.findOne({ emai: email });
 
-      if (usuarioBuscado.length < 1) {
+      if (user.length < 1) {
         return done(null, false, logger.error("Usuario no encontrado"));
       } else {
-        if (!bcryptjs.compareSync(contraseña, usuarioBuscado[0].contraseña)) {
+        if (!bcryptjs.compareSync(contraseña, user.contraseña)) {
           return done(null, false, logger.error("Incorrect Password"));
         } else {
-          return done(null, usuarioBuscado);
+          return done(null, user);
         }
       }
     }

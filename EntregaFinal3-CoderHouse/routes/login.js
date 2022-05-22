@@ -12,10 +12,11 @@ login.get("/login", (req, res) => {
 });
 
 login.post(
-  "/login",
+  "/login-user",
   passport.authenticate("local-signin", {
     successRedirect: "/home",
     failureRedirect: "/singup",
   })
 );
+
 module.exports = login;
