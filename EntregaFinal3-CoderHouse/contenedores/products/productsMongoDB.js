@@ -1,5 +1,3 @@
-/* import products from "./schemaProdMongoDB.js";
-import logger from "../../public/js/logs.js"; */
 const products = require("./schemaProdMongoDB.js");
 const logger = require("../../public/js/logs.js");
 

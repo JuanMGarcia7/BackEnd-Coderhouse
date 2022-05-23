@@ -1,6 +1,3 @@
-/* import { Router } from "express";
-import passport from "../public/js/passport.js";
-import path from "path"; */
 const { Router } = require("express");
 const path = require("path");
 const passport = require("../public/js/passport.js");

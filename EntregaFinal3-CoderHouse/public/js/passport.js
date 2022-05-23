@@ -1,8 +1,3 @@
-/* import LocalStrategy from "passport-local";
-import passport from "passport";
-import usersMongoDB from "../../contenedores/user/usersMongoDB.js";
-import bcryptjs from "bcryptjs";
-import { createTransport } from "nodemailer"; */
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const usersMongoDB = require("../../contenedores/user/usersMongoDB.js");

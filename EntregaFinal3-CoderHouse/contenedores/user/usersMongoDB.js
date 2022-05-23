@@ -1,5 +1,3 @@
-/* import users from "./schemaUserMongodb.js";
-import logger from "../../public/js/logs.js"; */
 const users = require("./schemaUserMongodb.js");
 const logger = require("../../public/js/logs.js");
 

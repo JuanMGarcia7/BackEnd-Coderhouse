@@ -17,7 +17,7 @@ homeRouter.get("/home", async (req, res) => {
   });
 });
 
-//Agregar producto- AGREGARLE UN MIDDLEWARE PARA Q SEA SOLO DE ADMIN
+//solo nosotros desde postman
 homeRouter.post("/home", async (req, res) => {
   const listaProductos = await productos.listAll();
 
@@ -37,6 +37,7 @@ homeRouter.post("/home", async (req, res) => {
   logger.info("Producto agregado a la base de datos!");
   res.send(producto);
 });
+//
 homeRouter.post("/productos/:id", async (req, res) => {
   const prodID = req.params.id;
 

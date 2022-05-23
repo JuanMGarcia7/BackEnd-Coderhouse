@@ -12,7 +12,6 @@ log4js.configure({
     todos: { appenders: ["miLoggerConsole"], level: "error" },
   },
 });
-//VER PORQUE NO ME PRINTEA
 
 const logger = log4js.getLogger();
 module.exports = logger;

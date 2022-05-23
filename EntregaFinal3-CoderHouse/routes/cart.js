@@ -1,8 +1,3 @@
-/* import { Router } from "express";
-import path from "path";
-import ContenedorCartMongoDB from "../contenedores/cart/cartMongoDB.js";
-import logger from "../public/js/logs.js";
-import { client, transporter } from "../public/js/msjCarrito.js"; */
 const { Router } = require("express");
 const path = require("path");
 const ContenedorCartMongoDB = require("../contenedores/cart/cartMongoDB.js");
@@ -27,7 +22,6 @@ cartRout.get("/cart", async (req, res) => {
     });
   }
 });
-//COMO SACO LA INDEXACION??
 
 cartRout.post("/compra-realizada", async (req, res) => {
   const cartTotal = await cart.find({});

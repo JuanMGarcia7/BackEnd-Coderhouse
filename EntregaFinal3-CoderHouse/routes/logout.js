@@ -1,6 +1,3 @@
-/* import { Router } from "express";
-import path from "path";
- */
 const { Router } = require("express");
 const path = require("path");
 

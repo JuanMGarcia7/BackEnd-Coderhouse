@@ -1,5 +1,3 @@
-/* import mongodb from "../../config/config.js";
-import mongoose from "mongoose"; */
 const mongodb = require("../../config/config.js");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;

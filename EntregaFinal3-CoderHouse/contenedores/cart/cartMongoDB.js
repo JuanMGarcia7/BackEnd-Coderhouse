@@ -1,5 +1,3 @@
-/* import cart from "./schemaCartMongoDB.js";
-import logger from "../../public/js/logs.js"; */
 const cart = require("./schemaCartMongoDB.js");
 const logger = require("../../public/js/logs.js");
 let id = 0;
