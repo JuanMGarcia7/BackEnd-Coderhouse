@@ -2,7 +2,7 @@ const { Router } = require("express");
 const path = require("path");
 const ContenedorProdMongoDB = require("../contenedores/controllers/productsMongoDB.js");
 const ContenedorCartMongoDB = require("../contenedores/controllers/cartMongoDB.js");
-const logger = require("../public/js/logs.js");
+const logger = require("../logs/logs.js");
 
 const homeRouter = new Router();
 const productos = new ContenedorProdMongoDB();

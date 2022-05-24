@@ -3,7 +3,7 @@ const path = require("path");
 const ContenedorCartMongoDB = require("../contenedores/controllers/cartMongoDB.js");
 const { client, transporter } = require("../public/js/msjCarrito.js");
 const logger = require("../logs/logs.js");
-const cart = require("../contenedores/schemas/schemaCartMongoDB.js.js");
+const cart = require("../contenedores/schemas/schemaCartMongoDB.js");
 
 const cartRout = new Router();
 const carts = new ContenedorCartMongoDB();

@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 const cluster = require("cluster");
 const { Server: HttpServer } = require("http");
 const { cpus } = require("os");
-const logger = require("../public/js/logs.js");
+const logger = require("../logs/logs.js");
 
 const numCPUs = cpus().length;
 

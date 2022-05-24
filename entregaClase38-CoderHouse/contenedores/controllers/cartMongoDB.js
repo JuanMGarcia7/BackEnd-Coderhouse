@@ -1,5 +1,5 @@
 const cart = require("../schemas/schemaCartMongoDB.js");
-const logger = require("../../public/js/logs.js");
+const logger = require("../../logs/logs.js");
 let id = 0;
 class ContenedorCartMongoDB {
   constructor() {}

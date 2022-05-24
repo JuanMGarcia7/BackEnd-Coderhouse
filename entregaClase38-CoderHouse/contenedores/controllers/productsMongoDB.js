@@ -1,5 +1,5 @@
-const products = require("./schemaProdMongoDB.js");
-const logger = require("../../public/js/logs.js");
+const products = require("../schemas/schemaProdMongoDB.js");
+const logger = require("../../logs/logs.js");
 
 class ContenedorProdMongoDB {
   constructor() {}

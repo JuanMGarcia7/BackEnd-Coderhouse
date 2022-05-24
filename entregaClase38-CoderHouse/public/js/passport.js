@@ -3,7 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const usersMongoDB = require("../../contenedores/controllers/usersMongoDB.js");
 const bcryptjs = require("bcryptjs");
 const { createTransport } = require("nodemailer");
-const logger = require("./logs.js");
+const logger = require("../../logs/logs.js");
 const users = require("../../contenedores/schemas/schemaUserMongodb.js");
 
 const user = new usersMongoDB();

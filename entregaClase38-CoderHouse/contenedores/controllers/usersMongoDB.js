@@ -1,4 +1,4 @@
-const users = require("./schemaUserMongodb.js");
+const users = require("../schemas/schemaUserMongodb.js");
 const logger = require("../../logs/logs.js");
 
 class ContenedorMongoDB {
