@@ -49,7 +49,7 @@ passport.use(
         newUser.nombre = req.body.nombre;
         newUser.email = req.body.email;
         newUser.contraseña = contraseñaHash;
-        newUser.numeroDeTelefono = req.body.numeroDeTelefono;
+        newUser.phone = req.body.full_phone;
         newUser.foto = req.body.foto;
         newUser.direccion = req.body.direccion;
         newUser.edad = req.body.edad;
@@ -64,7 +64,7 @@ passport.use(
              <ul>Datos:
              <li> Nombre:${newUser.nombre}</li>
              <li> Email:${newUser.email}</li>
-             <li> Numero de telefono:${newUser.numeroDeTelefono}</li>
+             <li> Numero de telefono:${newUser.phone}</li>
              <li> Foto:${newUser.foto}</li>
              <li> Direccion:${newUser.direccion}</li>
              <li> Edad:${newUser.edad}</li>

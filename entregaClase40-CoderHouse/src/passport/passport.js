@@ -1,10 +1,10 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const usersMongoDB = require("../../contenedores/controllers/usersMongoDB.js");
+const usersMongoDB = require("../containers/usersMongoDB.js");
 const bcryptjs = require("bcryptjs");
 const { createTransport } = require("nodemailer");
-const logger = require("../../logs/logs.js");
-const users = require("../../contenedores/schemas/schemaUserMongodb.js");
+const logger = require("../logs/logs.js");
+const users = require("../schemas/schemaUserMongodb.js");
 
 const user = new usersMongoDB();
 const TEST_MAIL = "jmanuelgarciaa.7@gmail.com";
@@ -94,6 +94,7 @@ passport.use(
     },
     async (req, email, contraseña, done) => {
       const user = await users.findOne({ emai: email });
+      console.log(user.contraseña);
 
       if (user.length < 1) {
         return done(null, false, logger.error("Usuario no encontrado"));

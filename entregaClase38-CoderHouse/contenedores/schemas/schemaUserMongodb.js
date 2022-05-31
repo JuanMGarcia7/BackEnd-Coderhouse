@@ -9,7 +9,7 @@ const usersSchema = new Schema({
   nombre: { type: String, required: true },
   edad: { type: Number, required: true },
   direccion: { type: String, required: true },
-  numeroDeTelefono: { type: Number, required: true },
+  phone: { type: Number, required: true },
   foto: { type: String, required: true },
   id: { type: Number, required: true },
 });
