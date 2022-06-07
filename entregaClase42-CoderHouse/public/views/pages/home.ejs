@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecommerce</title>
+    <title>Formulario de Ingreso de Productos</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
-
-
+    <script src="sweetalert2.all.min.js"></script>
   </head>
 
   <body class="fondoGeneral">
@@ -27,6 +26,7 @@
     </section>
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
         <a class="navbar-brand" href="#">
           <img src="../../assets/pngLogo.png" width="60" height="40" class="d-inline-block align-top" alt="">
           Ecommerce
@@ -36,11 +36,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/home">Home </a>
+            <li class="nav-item active ">
+              <a class="nav-link linkActivo" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link linkActivo" href="#">Cart <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/cart">Cart</a>
             </li>
             <li class="nav-item">
               <button
@@ -52,68 +52,52 @@
             </li>
           </ul>
           <span class="navbar-text">
-           
+            <%= nombreUsuario %>
          <!--   ver como -->
           </span>
         </div>
       </nav>
     </div>
     <div class="tituliPrincipal">
-      <h3>Bienvenidos al carrito!</h3>
+      <h3>Nuevos ingresos!</h3>
      
     </div>
-    <div class="container mt-3 containerCart">
-      <div class="jumbotron">
-        <h3>Tu carrito &#9759;</h3>
-        <br />
+    <br />
+    <div  >
+    <% if(hayProductos){ %>
+      <%productos.forEach(function(producto) {%>
+      
+    <form action="/productos/<%=producto._id%>" method="post">
+      <div class=" width">
+        <div >
+          <h5 class="cardTitle"><%=producto.nombre%></h5>
+          <p >
+            <ul>
+              <li name="id">ID:<%=producto._id%> </li>
+              <li name="nombre" >Nombre: <%=producto.nombre%></li>
+              <li name="precio">Precio: <%=producto.precio%></li>
+            </ul>
+          </p>
 
-        <% if(hayProductos){ %>
-        <div class="table-responsive">
-          <table class="table table-dark">
-            <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>ID</th>
-            </tr>
-            <%productos.forEach(function(producto) {%>
-            <tr>
-              <td><%=producto.nombre%></td>
-              <td><%=producto.precio%></td>
-              <td><%=producto._id%></td>
-            </tr>
-            <%});%>
-          </table>
-        </div>
-        <% } else{ %>
-        <h3 class="alert alert-warning">No se encontraron productos</h3>
-        <% } %>
-
-        <br />
-      </div>
-    </div>
-
-        <form action="/compra-realizada" method="post">
-            <button type="submit" class="btnAddToCart btnCompra">
-               <p class="textCompra">Finalizar compra</p> 
-            </button>
-        </form>
-       
-      </div>
-      <div>
-        <form action="/carrito-vacio" method="post">
-          <button type="submit" class="vaciarCarro">
-              Vaciar carro
+          <button type="submit" class="btnAddToCart" id="buttonToCart"
+          >
+            Agregar al carrito
           </button>
-      </form>
+        </div>
       </div>
     </form>
-    <section class="footer">
-      <div class="container-footer">
-    
-        <footer class="totalFooter">
-          <p class="textFooter">Derecho reservados ©- Curso Back-end Coderhouse</p>
-        </footer>
-      </div>
-    </section>
+        <%});%>
+      <%} else{ %>
+        <h3 class="alert alert-warning">No se encontraron productos</h3>
+        <% } %>
+  </div>
+  <section class="footer">
+  <div class="container-footer">
+
+    <footer class="totalFooter">
+      <p class="textFooter">Derecho reservados ©- Curso Back-end Coderhouse</p>
+    </footer>
+  </div>
+</section>
   </body>
 </html>

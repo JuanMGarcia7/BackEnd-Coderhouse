@@ -51,62 +51,21 @@
             </button>
             </li>
           </ul>
-          <span class="navbar-text">
-           
-         <!--   ver como -->
-          </span>
         </div>
       </nav>
     </div>
-    <div class="tituliPrincipal">
-      <h3>Bienvenidos al carrito!</h3>
-     
-    </div>
-    <div class="container mt-3 containerCart">
+<div class="containerCartVacio">
+    <div class="container mt-3">
       <div class="jumbotron">
-        <h3>Tu carrito &#9759;</h3>
-        <br />
-
-        <% if(hayProductos){ %>
-        <div class="table-responsive">
-          <table class="table table-dark">
-            <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>ID</th>
-            </tr>
-            <%productos.forEach(function(producto) {%>
-            <tr>
-              <td><%=producto.nombre%></td>
-              <td><%=producto.precio%></td>
-              <td><%=producto._id%></td>
-            </tr>
-            <%});%>
-          </table>
-        </div>
-        <% } else{ %>
-        <h3 class="alert alert-warning">No se encontraron productos</h3>
-        <% } %>
-
-        <br />
+     
+        <h3 class="msjCartVacio">Lo sentimos! Parece que tu carrito esta vacio</h3>    
       </div>
     </div>
-
-        <form action="/compra-realizada" method="post">
-            <button type="submit" class="btnAddToCart btnCompra">
-               <p class="textCompra">Finalizar compra</p> 
-            </button>
-        </form>
-       
+            <button type="submit"  class="btnAddToCart btnCompra">
+               <a href="/home"  class="textCompra">Volver al incio</a> 
+            </button>     
       </div>
-      <div>
-        <form action="/carrito-vacio" method="post">
-          <button type="submit" class="vaciarCarro">
-              Vaciar carro
-          </button>
-      </form>
-      </div>
-    </form>
+    </div>
     <section class="footer">
       <div class="container-footer">
     

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Ecommerce</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+  </head>
+  <body>
+    <body class="bodyLogin">
+      <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <img src="../../assets/pngLogo.png" width="60" height="40" class="d-inline-block align-top" alt="">
+
+          <a class="navbar-brand" href="#">Ecommerce</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link linkActivo" href="/singup">Registrarse </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link " href="/login">Iniciar sesion <span class="sr-only">(current)</span></a>
+              </li>
+            </div>
+        </nav>
+      </div>
+    <h1 class="registroTitulo">Registrese</h1>
+    <form action="/singup" method="post" class="form-total-registro">
+      <div class="form-group">
+        <label class="labelLog" for="nombre">Nombre </label>
+        <input type="nombre" class="form-control" id="nombre" name="nombre" />
+      </div>
+      <div class="form-group">
+        <label class="labelLog" for="email">Email </label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp"
+          name="email"
+        />
+      </div>
+      <div class="form-group">
+        <label class="labelLog" for="contraseña">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          id="contraseña"
+          name="contraseña"
+        />
+      </div>
+      <div class="form-group">
+        <label class="labelLog" for="edad">Edad</label>
+        <input type="number" class="form-control" id="edad" name="edad" />
+      </div>
+      <div class="form-group">
+        <label class="labelLog" for="full_phone">Numero de telefono</label><br>
+        <input
+          type="tel"
+          class="form-control"
+          id="phone"
+        
+        />
+      </div>
+      <div class="form-group">
+        <label class="labelLog" for="direccion">Direccion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="direccion"
+          name="direccion"
+        />
+      </div>
+      <div class="form-group">
+        <label class="labelLog" for="foto">Foto</label>
+        <input type="text" class="form-control" id="foto" name="foto" />
+      </div>
+      <button type="submit" class="btn btnLogin" id="buttonToLog">
+        Registrarse
+      </button>
+    </form>
+ 
+    <script src="../../routes//singup.js"></script>
+  </body>
+  <script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+         preferredCountries:["ar", "co"],
+        nationalMode:true,
+        formatOnDisplay:false,
+        hiddenInput: "full_phone",
+    });
+  </script>
+</html>
