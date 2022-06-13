@@ -1,0 +1,197 @@
+a{
+    color: black;
+    text-decoration: none !important;
+}
+a:hover{
+    color: black;
+    text-decoration: none !important;
+}
+.msjRegistrado{
+    margin: auto;
+    width: 40%;
+    border: 1px solid black;
+    margin-top: 15%;
+    text-align: center;
+    height: 250px;
+    padding-top: 3%;
+}
+.bodyLogin{
+    background-image: url(../assets/imgFondoHome.jpg);
+}
+.fondoGeneral{
+    background-image: url(../assets/fondoPantallaPaginas.jpg);
+}
+.labelLog{
+    color: white;
+    font-size: 20px;
+}
+.registroTitulo{
+    text-align: center;
+    size: 15px;
+    color: white;
+    width: 35%;
+    border-bottom: 1px solid white;
+    padding-bottom: 1%;
+    margin: auto;
+    padding-top: 1%;
+    
+}
+.tituliPrincipal{
+    width: 20%;
+    border: 3px solid black;
+    padding: 1%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5%;
+}
+.containerCartVacio{
+    height: 83vh;
+}
+.containerCart{
+   height:56vh; 
+}
+.msjCartVacio{
+    width: 70%;
+    border: 3px solid black;
+    padding: 1%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5%;
+}
+.msjLogout{
+    margin: auto;
+    width: 40%;
+    border: 1px solid white;
+    margin-top: 15%;
+    text-align: center;
+    height: 250px;
+    padding-top: 3%;
+    color: white;
+}
+.form-total{
+    padding-top: 15%;
+    width: 40%;
+    margin: auto;
+}
+.form-total-registro{
+    padding-top: 5%;
+    width: 40%;
+    margin: auto;
+}
+.form-control:focus{
+    box-shadow: none !important;
+    border-color: #010101;
+}
+
+.btnLogin{
+    color: black;
+    border: 1px solid black;
+    background-color: gray;
+}
+
+.linkActivo{
+    color: black;
+    font-weight: 600;
+}
+.nav-link{
+    font-size: 18px;
+}
+.nav-item:hover{
+    size: 20px;
+  transform: scale(1.1);
+  color: red;
+
+}
+
+.width{
+    padding: 1%;
+    margin-top: 5%;
+    width: 25%;
+    display: flex;
+    float: right;
+    border: 1px solid black;
+    text-align: center;
+    justify-content: space-evenly ;
+    margin-right: 7%;
+    margin-bottom: 5%;
+    box-shadow: 10px 6px 15px -5px #000000;
+    background-color: white;
+}
+
+.btnAddToCart{
+    background-color: rgb(40, 158, 46);
+    border: 1px solid black;
+    color: black;
+    height: 2.5rem;
+    border-radius: 7px;
+}
+.btnAddToCart:hover{
+  transform: scale(1.05);
+
+}
+.btn:focus{
+box-shadow: none !important;
+}
+.footer {
+    border-top: 1px solid black;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    margin-top: .5%;
+    margin-bottom: 0;
+    padding-top: 0.5%;
+    overflow: hidden; }
+.container-footer {
+    display: flex;
+    width: 100%;
+    align-items: center; 
+   justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding-bottom: 1%;
+    border-bottom: 1px solid #010101; 
+}
+  
+.header {
+    border-bottom: 1px solid black;
+    text-align: center;
+    width: 100%;
+    height: 25px;
+    overflow: hidden;
+background-color: grey; }
+.container-header {
+    display: flex;
+    width: 100%;
+    align-items: center; 
+   justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #010101; 
+}
+.textHeader{
+   color: #010101;
+}
+
+
+.btnCompra{
+    height: 40px;
+    width: 14rem;
+    display: flex;
+   margin: auto;
+   justify-content: center;
+   
+}
+.textCompra{
+    padding-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    align-items: center;
+}
+.vaciarCarro{
+    background-color: red;
+    border-radius: 4px;
+    display: flex;
+   margin: auto;
+}

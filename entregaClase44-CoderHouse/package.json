@@ -1,0 +1,43 @@
+{
+  "name": "entregafinal3-coderhouse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "mocha src/test/mocha-chai/apirestfull.test.js",
+    "start": "nodemon ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.7",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "express-session": "^1.17.3",
+    "graphql": "^16.5.0",
+    "intl-tel-input": "^17.0.16",
+    "joi": "^17.6.0",
+    "log4js": "^6.4.7",
+    "moment": "^2.29.3",
+    "mongoose": "^6.3.3",
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.16",
+    "passport": "^0.5.3",
+    "passport-local": "^1.0.0",
+    "sweetalert2": "^11.4.14",
+    "twilio": "^3.77.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.3"
+  }
+}
