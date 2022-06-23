@@ -36,21 +36,51 @@ async function createProducto({ datos }) {
   //FUNCIONA CORRECTAMENTE
 }
 
-async function updateProducto({ id }) {
-  const prodBuscado = products.findOneAndUpdate(
+async function updateProducto({ _id, datos }) {
+  /*   const prodBuscado = products.findOneAndUpdate(
     { id: id },
     new Producto(id, datos)
   );
-  return prodBuscado;
+  return prodBuscado; */
   //no funciona asi
+  try {
+    console.log(datos);
+    console.log(_id);
+    let productoActual = await products.findById(_id);
+    if (!productoActual) {
+      return false;
+    }
+    productoActual = await products.findByIdAndUpdate(_id, datos, {
+      new: true,
+      runValidators: true,
+      useUnified: true,
+    });
+    return productoActual;
+  } catch (error) {
+    const err = "Error al actualizar";
+    throw err;
+  }
 }
 
-async function deleteProducto({ id }) {
-  const prodBuscado = await products.find({ id: id });
+async function deleteProducto({ _id }) {
+  /* const prodBuscado = await products.find({ id: id });
   await products.deleteOne({ id: id });
 
   //BORRA EN LA DB PERO NO RETORNA LO QUE CORRESPONDE
-  return prodBuscado;
+  return prodBuscado; */
+  try {
+    console.log(_id);
+    const existe = await products.findById({ _id });
+    if (!existe) {
+      return false;
+    }
+    console.log("EXISTEE!!", existe);
+    const deleted = await products.deleteOne({ _id: _id });
+    return existe;
+  } catch (error) {
+    const err = error.message("error al borrar");
+    throw err;
+  }
 }
 
 module.exports = {
