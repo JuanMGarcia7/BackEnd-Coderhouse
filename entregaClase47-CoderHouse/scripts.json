@@ -1,0 +1,10 @@
+{
+  "$schema": "https://deno.land/x/denon@2.5.0/schema.json",
+  "scripts": {
+    "start": {
+      "cmd": "deno run index.tsx",
+      "desc": "run my index.tsx file",
+      "start": "denon run index.tsx"
+    }
+  }
+}
