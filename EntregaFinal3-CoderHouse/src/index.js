@@ -7,6 +7,7 @@ const cartRout = require("../routes/cart.js");
 const passport = require("passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const MongoStore = require("connect-mongo");
 const bodyParser = require("body-parser");
 const cluster = require("cluster");
 const { Server: HttpServer } = require("http");
@@ -35,15 +36,14 @@ app.set("view engine", "ejs");
 app.use(cookieParser());
 app.use(
   session({
-    secret: "shhhhhhhhhhhhhhhhhhhhh",
+    cookie: { maxAge: 600000 },
+    secret: "secret",
     resave: true,
     saveUninitialized: true,
-    rolling: true,
-    cookie: {
-      maxAge: 60000,
-    },
+    store: MongoStore.create({ mongoUrl: process.env.MONGOURL }),
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 

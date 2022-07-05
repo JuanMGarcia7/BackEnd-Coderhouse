@@ -99,6 +99,9 @@ passport.use(
         return done(null, false, logger.error("Usuario no encontrado"));
       } else {
         if (!bcryptjs.compareSync(contraseña, user.contraseña)) {
+          console.log(contraseña);
+          console.log(user.contraseña);
+
           return done(null, false, logger.error("Incorrect Password"));
         } else {
           return done(null, user);
