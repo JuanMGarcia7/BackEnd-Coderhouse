@@ -1,0 +1,4 @@
+# mis carpetas
+node_modules/
+/.env
+*.env

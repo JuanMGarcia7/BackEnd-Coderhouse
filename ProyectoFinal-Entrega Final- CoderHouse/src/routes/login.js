@@ -6,6 +6,10 @@ const login = new Router();
 
 login.get("/login", getLogin);
 
+login.get("/", (req, res) => {
+  res.redirect("/home");
+});
+
 login.post(
   "/login-user",
   passport.authenticate("local", {

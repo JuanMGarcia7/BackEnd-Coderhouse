@@ -32,6 +32,8 @@ logs
 *.zip
 *.rar
 *.sql
+*.env
+.env*
 
 # mis carpetas
 node_modules/

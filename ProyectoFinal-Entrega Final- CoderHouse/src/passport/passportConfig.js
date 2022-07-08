@@ -74,12 +74,12 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, contraseña, done) => {
-      const user = await users.findOne({ emai: email });
+      const user = await usuario.findUserByEmail(email);
 
       if (user.length < 1) {
         return done(null, false, logger.error("Usuario no encontrado"));
       } else {
-        if (!bcryptjs.compareSync(contraseña, user.contraseña)) {
+        if (!bcryptjs.compareSync(contraseña, user[0].contraseña)) {
           return done(null, false, logger.error("Incorrect Password"));
         } else {
           logger.info("contraseña correcta");
@@ -91,7 +91,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.email);
+  done(null, user[0].email);
 });
 
 passport.deserializeUser((email, done) => {

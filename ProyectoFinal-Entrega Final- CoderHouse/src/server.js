@@ -15,10 +15,12 @@ const connectDB = require("./utils/connectMongo.js");
 const numCPUs = cpus().length;
 const dotenv = require("dotenv");
 dotenv.config();
+const SocketIO = require("socket.io");
 
 const app = express();
 const port = process.env.PORT;
 const httpServer = new HttpServer(app);
+
 app.use(
   session({
     cookie: { maxAge: 600000 },
@@ -69,3 +71,18 @@ if (process.env.MODO == "CLUSTER") {
     );
   }
 }
+
+//sockets
+
+const io = SocketIO(httpServer);
+
+io.on("connection", (socket) => {
+  console.log("new connection", socket.id);
+  socket.on("chat:message", (data) => {
+    io.sockets.emit("chat:message", data);
+  });
+
+  socket.on("chat:typing", (data) => {
+    socket.broadcast.emit("chat:typing", data);
+  });
+});
