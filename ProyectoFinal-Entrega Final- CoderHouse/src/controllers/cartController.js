@@ -69,9 +69,7 @@ const compraRealizada = async (req, res) => {
   const options = {
     body: `Nuevo pedido!
       Usuario: ${req.user._conditions.email}
-      <br>
       Fecha: ${moment().format("MMMM Do YYYY, h:mm:ss a")}
-      <br>
         Su compra:
        
         ${cartTotal[0].productos.map(
